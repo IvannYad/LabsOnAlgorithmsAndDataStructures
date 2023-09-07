@@ -1,1 +1,30 @@
-﻿
+﻿@model Laba1VM
+
+
+<div class="card-body p-4">
+    <form method="post" class="row text-body-secondary">
+        <div class="container d-flex justify-content-center align-items-center">
+            <h5>Lab1 Task</h5>
+        </div>
+        <div class="container row">
+            <div class="container col-8">
+                <label for="arrayInput" class="m-1">Enter Array in following way: </label>
+                <input asp-for="ArrayString" class="form-control border-2" placeholder="element1 element2 element3 ... elementN">
+            </div>
+            <div class="container col-4">
+                <div class="form-group">
+                    <label for="exampleSelect1" class="form-label">Example select</label>
+                    <select class="form-select border-2" id="exampleSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
