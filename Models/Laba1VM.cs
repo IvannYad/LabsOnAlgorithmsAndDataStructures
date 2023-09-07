@@ -11,5 +11,6 @@ namespace Laba.Models
         [Required]
         public string[] Array;
         public IEnumerable<SortingAlgorithResultModel<string>> SortingAlgorithmStepsResult { get; set; }
+        public int TimeToSortInMiliseconds { get; set; }
     }
 }

@@ -31,10 +31,10 @@
             <table class="table table-hover col-12">
             <thead>
                     <tr class="table-active table-dark">
-                    <td scope="col">Iteration</td>
+                    <td scope="col" class="text-warning">Iteration</td>
                     @for (int i = 0; i < Model.Array.Length; i++)
                     {
-                        <td scope="col">@string.Format($"[{i}]")</td>
+                        <td scope="col" class="text-warning">@string.Format($"[{i}]")</td>
                     }
                 </tr>
             </thead>
@@ -79,6 +79,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="container row mt-3">
+        Time elapsed : @Model.TimeToSortInMiliseconds mcs
     </div>
     }
     

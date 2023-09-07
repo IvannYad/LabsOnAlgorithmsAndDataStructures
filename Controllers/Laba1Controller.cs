@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace Laba.Controllers
 {
@@ -15,14 +16,22 @@ namespace Laba.Controllers
         [HttpPost]
         public IActionResult Index(Laba1VM laba1VM, string customTaskChecked = "off")
         {
+            Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
                 laba1VM.Array = laba1VM.ArrayString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
                 laba1VM.SortingAlgorithmStepsResult = Sort(ref laba1VM.Array, customTaskChecked is "on");
+                stopwatch.Stop();
+                laba1VM.TimeToSortInMiliseconds = (int)stopwatch.Elapsed.Microseconds;
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Array", "Invalid array input");
+            }
+            finally
+            {
+                if (stopwatch.IsRunning)
+                    stopwatch.Stop();
             }
 
             return View(laba1VM);
@@ -33,26 +42,16 @@ namespace Laba.Controllers
             var result = new List<SortingAlgorithResultModel<string>>();
             string[] tempArray;
             if (customTaskChecked)
+                array = array.Where(p => p.Length <= 8).ToArray();
+                
+            tempArray = (string[])array.Clone();
+            for (int i = 0; i < tempArray.Length - 1; i++)
             {
-                array = array.Where(p => p.Length < 8).ToArray();
-                tempArray = (string[])array.Clone();
-                for (int i = 0; i < tempArray.Length - 1; i++)
-                {
-                    Swap(ref tempArray[tempArray.Length - 1 - i], ref tempArray[FindMinIndex(tempArray)]);
-                    result.Add(new SortingAlgorithResultModel<string>() { Index1ToSwap = tempArray.Length - 1 - i, Index2ToSwap = FindMinIndex(tempArray), Array = (string[])tempArray.Clone(), LastIndexSorted = i - 1 });
-                }
+                var minIndex = FindMinIndex(tempArray[i..]) + i;
+                Swap(ref tempArray[i], ref tempArray[minIndex]);
+                result.Add(new SortingAlgorithResultModel<string>() { Index1ToSwap = i, Index2ToSwap = minIndex, Array = (string[])tempArray.Clone(), LastIndexSorted = i - 1 });
             }
-            else
-            {
-                tempArray = (string[])array.Clone();
-                for (int i = 0; i < tempArray.Length - 1; i++)
-                {
-                    var minIndex = FindMinIndex(tempArray[i..]) + i;
-                    Swap(ref tempArray[i], ref tempArray[minIndex]);
-                    result.Add(new SortingAlgorithResultModel<string>() { Index1ToSwap = i, Index2ToSwap = minIndex, Array = (string[])tempArray.Clone(), LastIndexSorted = i - 1});
-                }
-            }
-            
+
             return result;
         }
 
