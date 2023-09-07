@@ -2725,14 +2725,14 @@ textarea.form-control-lg {
     }
 
     .form-check-input:focus {
-        border-color: #99aec4;
+        border-color: #606060;
         outline: 0;
-        box-shadow: 0 0 0 0.25rem rgba(50, 93, 136, 0.25);
+        box-shadow: 0 0 0 0.25rem #ffa23d81;
     }
 
     .form-check-input:checked {
-        background-color: #325d88;
-        border-color: #325d88;
+        background-color: #ff8b1b;
+        border-color: #969696;
     }
 
         .form-check-input:checked[type=checkbox] {
