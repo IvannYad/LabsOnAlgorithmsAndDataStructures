@@ -6,8 +6,9 @@ namespace Laba.Models
     public class SortingAlgorithResultModel<T>
     {
         [Required]
-        public IEnumerable<T> Array { get; set; }
+        public T[] Array { get; set; }
 
+        public int LastIndexSorted { get; set; }
         public int Index1ToSwap { get; set; }
         public int Index2ToSwap { get; set; }
     }

@@ -9,10 +9,7 @@ namespace Laba.Models
         [Required]
         public string ArrayString { get; set; }
         [Required]
-        public string Type { get; set; }
-        [ValidateNever]
-        public IEnumerable<SelectListItem> Types { get; set; }
-        public Type[] Array { get; set; }
+        public string[] Array;
         public IEnumerable<SortingAlgorithResultModel<string>> SortingAlgorithmStepsResult { get; set; }
     }
 }
