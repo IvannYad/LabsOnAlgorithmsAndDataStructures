@@ -5,7 +5,7 @@ namespace Laba.Models
     public class Lab2VM
     {
         [Required]
-        public string[] MatrixString { get; set; }
+        public string MatrixString { get; set; }
         [Required]
         public double[][] MatrixBefore;
         public IEnumerable<SortingAlgorithmStepResultModelLab2> SortingAlgorithmStepsResult { get; set; }

@@ -28,7 +28,8 @@ namespace Laba.Controllers
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                laba2VM.MatrixBefore = _prepareCollectionService.GetCollectionFromString(laba2VM.MatrixString);
+                laba2VM.MatrixBefore = _prepareCollectionService
+                                        .GetCollectionFromString(laba2VM.MatrixString.Split("\r\n", StringSplitOptions.RemoveEmptyEntries));
                 laba2VM.SortingAlgorithmStepsResult = _sortingServiceLab2.Sort(ref laba2VM.MatrixBefore, customTaskChecked is "on");
                 stopwatch.Stop();
 
