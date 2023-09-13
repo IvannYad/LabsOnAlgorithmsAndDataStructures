@@ -10,20 +10,17 @@ namespace Laba.Services
 
         public int SwipesCount { get; private set; }
 
-        public IEnumerable<SortingAlgorithmStepResultModelLab2> Sort(ref double[,] array, bool customTaskChecked = false)
+        public IEnumerable<SortingAlgorithmStepResultModelLab2> Sort(ref double[][] array, bool customTaskChecked = false)
         {
             // List stores information that will be passed to view.
             List<SortingAlgorithmStepResultModelLab2> toReturn = new ();
             
-            double[,] tempMatrix = (double[,])array.Clone();
+            double[][] tempMatrix = (double[][])array.Clone();
             // sums - auxiliary array that stores sums of matrix rows.
             double[] sums = new double[array.GetLength(0)];
             for (int i = 0; i < array.GetLength(0); i++)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
-                {
-                    sums[i] = array[i, j];
-                }
+                sums[i] = array[i].Sum(x => x);
             }
 
             int step = array.Length / 2;
@@ -48,7 +45,7 @@ namespace Laba.Services
                                 swapped = true;
                                 Swap(ref sums[j], ref sums[j + step]);
 
-                                SwapRows(tempMatrix, j, j + step);
+                                SwapRows(ref tempMatrix[j], ref tempMatrix[j + step]);
 
                                 toReturn.Add(new SortingAlgorithmStepResultModelLab2()
                                 { 
@@ -80,14 +77,12 @@ namespace Laba.Services
             b = t;
         }
 
-        public void SwapRows(double[,] matrix, int m, int n)
+        public void SwapRows(ref double[] a, ref double[] b)
         {
-            for (int i = 0; i < matrix.GetLength(1); i++)
-            {
-                Swap(ref matrix[m, i], ref matrix[n, i]);
-            }
+            var temp = (double[])a.Clone();
+            a = b; 
+            b = temp;
         }
-
         private int[] GenerateSwappableIndexes(int start, int end, int step)
         {
             List<int> toReturn = new List<int>();

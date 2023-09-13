@@ -10,10 +10,12 @@ namespace Laba.Controllers
     public class Lab1Controller : Controller
     {
         private readonly ISortingServiceLab1 _sortingServiceLab1;
+        private readonly IPrepareCollectionService<string, string[]> _prepareCollectionService;
 
-        public Lab1Controller(ISortingServiceLab1 sortingServiceLab1)
+        public Lab1Controller(ISortingServiceLab1 sortingServiceLab1, IPrepareCollectionService<string, string[]> prepareCollectionService)
         {
             _sortingServiceLab1 = sortingServiceLab1;
+            _prepareCollectionService = prepareCollectionService;
         }
         public IActionResult Index()
         {
@@ -27,7 +29,7 @@ namespace Laba.Controllers
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                laba1VM.Array = laba1VM.ArrayString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                laba1VM.Array = _prepareCollectionService.GetCollectionFromString(laba1VM.ArrayString);
                 laba1VM.SortingAlgorithmStepsResult = _sortingServiceLab1.Sort(ref laba1VM.Array, customTaskChecked is "on");
                 stopwatch.Stop();
 

@@ -11,6 +11,7 @@ namespace Laba.Models
         public IEnumerable<SortingAlgorithmStepResultModelLab2> SortingAlgorithmStepsResult { get; set; }
         public int TimeToSortInMiliseconds { get; set; }
 
-        public int SwipesCount;
+        public int SwipesCount { get; set; }
+        public int ComparesCount { get; set; }
     }
 }

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ISortingServiceLab1, SortingServiceLab1>();
+builder.Services.AddScoped<ISortingServiceLab2, SortingServiceLab2>();
 
 var app = builder.Build();
 
