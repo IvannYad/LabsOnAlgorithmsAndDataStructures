@@ -1,5 +1,6 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace Laba.Services
 {
@@ -26,6 +27,7 @@ namespace Laba.Services
             }
 
             int step = array.Length / 2;
+            int iteration = 1;
             bool swapped;
             while (step > 0)
             {
@@ -36,6 +38,7 @@ namespace Laba.Services
                     while (swapped)
                     {
                         swapped = false;
+                        int[] swappableIdexes = GenerateSwappableIndexes(i, sums.Length, step);
                         for (int j = i; j + step < sums.Length; j += step)
                         {
                             ComparesCount++;
@@ -47,7 +50,16 @@ namespace Laba.Services
 
                                 SwapRows(tempMatrix, j, j + step);
 
-                                toReturn.Add(new SortingAlgorithmStepResultModelLab2 { Matrix = tempMatrix, Sums = sums, Index1ToSwap = j, Index2ToSwap = j + step });
+                                toReturn.Add(new SortingAlgorithmStepResultModelLab2()
+                                { 
+                                    Iteration = iteration++, 
+                                    Step = step, 
+                                    SwappableIndexes =swappableIdexes, 
+                                    Matrix = tempMatrix, 
+                                    Sums = sums, 
+                                    Index1ToSwap = j, 
+                                    Index2ToSwap = j + step
+                                });
                             }
                         }
                     }
@@ -74,6 +86,18 @@ namespace Laba.Services
             {
                 Swap(ref matrix[m, i], ref matrix[n, i]);
             }
+        }
+
+        private int[] GenerateSwappableIndexes(int start, int end, int step)
+        {
+            List<int> toReturn = new List<int>();
+            while (start < end)
+            {
+                toReturn.Add(step);
+                start += step;
+            }
+
+            return toReturn.ToArray();
         }
     }
 }
