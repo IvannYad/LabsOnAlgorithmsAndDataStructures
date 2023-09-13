@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Laba.Models
 {
-    public class SortingAlgorithResultModel<T>
+    public class SortingAlgorithmStepResultModelLab1
     {
         [Required]
-        public T[] Array { get; set; }
+        public string[] Array { get; set; }
 
         public int LastIndexSorted { get; set; }
         public int Index1ToSwap { get; set; }

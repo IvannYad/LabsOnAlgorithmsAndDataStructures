@@ -1,4 +1,4 @@
-﻿@model Laba1VM
+﻿@model Lab1VM
 
 
 <div class="card-body p-4">
@@ -30,7 +30,7 @@
         <div class="container row mt-3">
             <table class="table table-hover col-12">
                 <thead>
-                        <tr class="table-active table-dark">
+                    <tr class="table-active table-dark">
                         <td scope="col" class="text-warning">Iteration</td>
                         @for (int i = 0; i < Model.Array.Length; i++)
                         {
@@ -65,10 +65,10 @@
                                     <td class="bg-danger">@string.Format($"{item.Array[i]}")</td>
                                     continue;
                                 }
-                            
+
                                 <td>@string.Format($"{item.Array[i]}")</td>
                             }
-                        </tr>    
+                        </tr>
                     }
                     <tr class="table-light">
                         <td>Result</td>
@@ -87,7 +87,7 @@
             Number of compare oeprations : @Model.ComparesCount
         </div>
     }
-    
+
 </div>
 
 

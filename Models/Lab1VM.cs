@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Laba.Models
 {
-    public class Laba1VM
+    public class Lab1VM
     {
         [Required]
         public string ArrayString { get; set; }
         [Required]
         public string[] Array;
-        public IEnumerable<SortingAlgorithResultModel<string>> SortingAlgorithmStepsResult { get; set; }
+        public IEnumerable<SortingAlgorithmStepResultModelLab1> SortingAlgorithmStepsResult { get; set; }
         public int TimeToSortInMiliseconds { get; set; }
 
         public int ComparesCount;

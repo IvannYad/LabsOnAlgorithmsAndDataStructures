@@ -1,7 +1,11 @@
+using Laba.Services;
+using Laba.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ISortingServiceLab1, SortingServiceLab1>();
 
 var app = builder.Build();
 
