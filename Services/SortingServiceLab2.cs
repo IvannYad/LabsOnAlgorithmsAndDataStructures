@@ -15,7 +15,6 @@ namespace Laba.Services
             // List stores information that will be passed to view.
             List<SortingAlgorithmStepResultModelLab2> toReturn = new ();
             
-            double[][] tempMatrix = (double[][])matr.Clone();
             // sums - auxiliary array that stores sums of matrix rows.
             double[] sums = new double[matr.GetLength(0)];
             for (int i = 0; i < matr.GetLength(0); i++)
@@ -43,12 +42,12 @@ namespace Laba.Services
                             {
                                 SwipesCount++;
                                 swapped = true;
-                                var matrBefore = (double[][])tempMatrix.Clone();
+                                var matrBefore = (double[][])matr.Clone();
                                 var sumsBefore = (double[])sums.Clone();
                                 Swap(ref sums[j], ref sums[j + step]);
 
-                                SwapRows(ref tempMatrix[j], ref tempMatrix[j + step]);
-                                var matrAfter = (double[][])tempMatrix.Clone();
+                                SwapRows(ref matr[j], ref matr[j + step]);
+                                var matrAfter = (double[][])matr.Clone();
                                 var sumsAfter = (double[])sums.Clone();
                                 toReturn.Add(new SortingAlgorithmStepResultModelLab2()
                                 { 

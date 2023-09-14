@@ -29,15 +29,15 @@ namespace Laba.Controllers
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                laba2VM.MatrixBefore = _prepareCollectionService
+                laba2VM.Matrix = _prepareCollectionService
                                         .GetCollectionFromString(laba2VM.MatrixString.Split("\r\n", StringSplitOptions.RemoveEmptyEntries));
-                if (!laba2VM.MatrixBefore.All(m => m.Length == laba2VM.MatrixBefore[0].Length))
+                if (!laba2VM.Matrix.All(m => m.Length == laba2VM.Matrix[0].Length))
                 {
                     ModelState.AddModelError("MatrixString", "Matrix must have all rows the same length");
                     return View(laba2VM);
                 }
 
-                laba2VM.SortingAlgorithmStepsResult = _sortingServiceLab2.Sort(ref laba2VM.MatrixBefore, customTaskChecked is "on");
+                laba2VM.SortingAlgorithmStepsResult = _sortingServiceLab2.Sort(ref laba2VM.Matrix, customTaskChecked is "on");
                 stopwatch.Stop();
 
                 laba2VM.TimeToSortInMiliseconds = (int)stopwatch.Elapsed.Microseconds;
