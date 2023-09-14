@@ -46,7 +46,7 @@ namespace Laba.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Matrix", "Invalid matrix input");
+                ModelState.AddModelError("MatrixString", "Invalid matrix input");
             }
             finally
             {
