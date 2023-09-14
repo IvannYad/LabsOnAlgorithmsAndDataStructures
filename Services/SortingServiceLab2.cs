@@ -10,20 +10,20 @@ namespace Laba.Services
 
         public int SwipesCount { get; private set; }
 
-        public List<SortingAlgorithmStepResultModelLab2> Sort(ref double[][] array, bool customTaskChecked = false)
+        public List<SortingAlgorithmStepResultModelLab2> Sort(ref double[][] matr, bool customTaskChecked = false)
         {
             // List stores information that will be passed to view.
             List<SortingAlgorithmStepResultModelLab2> toReturn = new ();
             
-            double[][] tempMatrix = (double[][])array.Clone();
+            double[][] tempMatrix = (double[][])matr.Clone();
             // sums - auxiliary array that stores sums of matrix rows.
-            double[] sums = new double[array.GetLength(0)];
-            for (int i = 0; i < array.GetLength(0); i++)
+            double[] sums = new double[matr.GetLength(0)];
+            for (int i = 0; i < matr.GetLength(0); i++)
             {
-                sums[i] = array[i].Sum(x => x);
+                sums[i] = matr[i].Sum(x => x);
             }
 
-            int step = (array.Length + 1) / 2;
+            int step = (matr.Length + 1) / 2;
             int iteration = 1;
             bool swapped;
             while (step > 0)

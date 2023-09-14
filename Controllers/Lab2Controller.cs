@@ -31,6 +31,12 @@ namespace Laba.Controllers
             {
                 laba2VM.MatrixBefore = _prepareCollectionService
                                         .GetCollectionFromString(laba2VM.MatrixString.Split("\r\n", StringSplitOptions.RemoveEmptyEntries));
+                if (!laba2VM.MatrixBefore.All(m => m.Length == laba2VM.MatrixBefore[0].Length))
+                {
+                    ModelState.AddModelError("MatrixString", "Matrix must have all rows the same length");
+                    return View(laba2VM);
+                }
+
                 laba2VM.SortingAlgorithmStepsResult = _sortingServiceLab2.Sort(ref laba2VM.MatrixBefore, customTaskChecked is "on");
                 stopwatch.Stop();
 
