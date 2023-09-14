@@ -16,6 +16,7 @@ namespace Laba.Controllers
             _prepareCollectionService = prepareCollectionService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View(new Lab2VM());

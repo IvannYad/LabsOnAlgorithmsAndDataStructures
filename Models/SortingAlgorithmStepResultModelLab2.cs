@@ -5,8 +5,10 @@ namespace Laba.Models
     public class SortingAlgorithmStepResultModelLab2
     {
         [Required]
-        public double[][] Matrix { get; set; }
-        public double[] Sums { get; set; }
+        public double[][] MatrixBefore { get; set; }
+        public double[][] MatrixAfter { get; set; }
+        public double[] SumsBefore { get; set; }
+        public double[] SumsAfter { get; set; }
         public int[] SwappableIndexes { get; set; }
         public int Step { get; set; }
         public int Iteration { get; set; }

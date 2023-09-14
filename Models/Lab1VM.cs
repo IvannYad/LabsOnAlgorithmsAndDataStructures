@@ -10,7 +10,7 @@ namespace Laba.Models
         public string ArrayString { get; set; }
         [Required]
         public string[] Array;
-        public IEnumerable<SortingAlgorithmStepResultModelLab1> SortingAlgorithmStepsResult { get; set; }
+        public List<SortingAlgorithmStepResultModelLab1> SortingAlgorithmStepsResult { get; set; }
         public int TimeToSortInMiliseconds { get; set; }
 
         public int ComparesCount;

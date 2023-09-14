@@ -46,27 +46,93 @@ arrN[0] arrN[1] ... arrN[n]"></textarea>
                             <td>@step.Iteration</td>
                             <td>@step.Step</td>
                             <td>
+                                @* Matrix before *@
                                 <table class="table table-hover col-12">
-                                    <thead>
-                                        <tr class="table-active table-dark row" style="width: 95%;">
-                                            <th scope="col" class="text-warning col-3">Sums</th>
-                                            <th scope="col" class="text-warning col-9">Matrix</th>
+                                    <thead style="width:100%;">
+                                        <tr class="table-active table-dark" style="width: 95%;">
+                                            <th scope="col" class="text-warning">Sums</th>
+                                            <th colspan="@step.MatrixBefore[0].Length" class="text-warning text-center">Matrix</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
+                                    <tbody style="width:100%;">
+                                        @for (int i = 0, swapIndex = 0; i < step.SumsBefore.Length; i++)
+                                        {
+                                            @* Check for swappable indexes. *@
+                                            @if (swapIndex < step.SwappableIndexes.Length && i == step.SwappableIndexes[swapIndex])
+                                            {
+                                                <tr style="width: 100%; border: solid 2px orange">
+                                                    <td style="border-right: solid 1px grey; width:30px;">@step.SumsBefore[i]</td>
+                                                    @for (int j = 0; j < step.MatrixBefore[i].Length; j++)
+                                                    {
+                                                        <td class="text-center">@step.MatrixBefore[i][j]</td>
+                                                    }
+                                                </tr>
+                                                swapIndex++;
+                                            }
+                                            else
+                                            {
+                                                <tr style="width: 100%;">
+                                                    <td style="border-right: solid 1px grey; width:30px;">@step.SumsBefore[i]</td>
+                                                    @for (int j = 0; j < step.MatrixBefore[i].Length; j++)
+                                                    {
+                                                        <td class="text-center">@step.MatrixBefore[i][j]</td>
+                                                    }
+                                                </tr>
+                                            }
+                                        }
                                     </tbody>
                                 </table>
                             </td>
 
                             <td>
+                                @* Matrix after *@
                                 <table class="table table-hover col-12">
-                                    <thead>
-                                        <tr class="table-active table-dark row" style="width: 95%;">
-                                            <th scope="col" class="text-warning col-3">Sums</th>
-                                            <th scope="col" class="text-warning col-9">Matrix</th>
+                                    <thead style="width:100%;">
+                                        <tr class="table-active table-dark" style="width: 95%;">
+                                            <th scope="col" class="text-warning">Sums</th>
+                                            <th colspan="@step.MatrixAfter[0].Length" class="text-warning text-center">Matrix</th>
                                         </tr>
                                     </thead>
+                                    <tbody style="width:100%;">
+                                        @for (int i = 0, swapIndex = 0; i < step.SumsAfter.Length; i++)
+                                        {
+                                            @* Check for swappable indexes. *@
+                                            @if (swapIndex < step.SwappableIndexes.Length && i == step.SwappableIndexes[swapIndex])
+                                            {
+                                                <tr style="width: 100%; border: solid 2px orange">
+                                                    @* Check for elements that was swapped *@
+                                                    @if (i == step.Index1ToSwap || i == step.Index2ToSwap)
+                                                    {
+                                                        <td  class="bg-danger" style="border-right: solid 1px grey; width:30px;">@step.SumsAfter[i]</td>
+                                                        @for (int j = 0; j < step.MatrixAfter[i].Length; j++)
+                                                        {
+                                                            <td class="bg-danger text-center">@step.MatrixAfter[i][j]</td>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="border-right: solid 1px grey; width:30px;">@step.SumsAfter[i]</td>
+                                                        @for (int j = 0; j < step.MatrixAfter[i].Length; j++)
+                                                        {
+                                                            <td class="text-center">@step.MatrixAfter[i][j]</td>
+                                                        }
+                                                    }
+
+                                                </tr>
+                                                swapIndex++;
+                                            }
+                                            else
+                                            {
+                                                <tr style="width: 100%;">
+                                                    <td style="border-right: solid 1px grey; width:30px;">@step.SumsAfter[i]</td>
+                                                    @for (int j = 0; j < step.MatrixAfter[i].Length; j++)
+                                                    {
+                                                        <td class="text-center">@step.MatrixAfter[i][j]</td>
+                                                    }
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>

@@ -24,7 +24,7 @@ namespace Laba.Services
             return kMin;
         }
 
-        public IEnumerable<SortingAlgorithmStepResultModelLab1> Sort(ref string[] array, bool customTaskChecked = false)
+        public List<SortingAlgorithmStepResultModelLab1> Sort(ref string[] array, bool customTaskChecked = false)
         {
             var result = new List<SortingAlgorithmStepResultModelLab1>();
             string[] tempArray;

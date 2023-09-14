@@ -4,6 +4,6 @@ namespace Laba.Services.Interfaces
 {
     public interface ISortingService<TSortStepResult, TCollection> where TCollection : IEnumerable
     {
-        IEnumerable<TSortStepResult> Sort(ref TCollection array, bool customTaskChecked = false);
+        List<TSortStepResult> Sort(ref TCollection array, bool customTaskChecked = false);
     }
 }
