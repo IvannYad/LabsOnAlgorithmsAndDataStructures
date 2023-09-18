@@ -65,10 +65,21 @@ arrN[0] arrN[1] ... arrN[n]"></textarea>
                                                 @if (swapIndex < step.SwappableIndexes.Length && i == step.SwappableIndexes[swapIndex])
                                                 {
                                                     <tr style="width: 100%; border: solid 2px orange">
-                                                        <td style="border-right: solid 1px grey; width:30px;">@step.SumsBefore[i]</td>
-                                                        @for (int j = 0; j < step.MatrixBefore[i].Length; j++)
+                                                        @if (i == step.Index1ToSwap)
                                                         {
-                                                            <td class="text-center">@step.MatrixBefore[i][j]</td>
+                                                            <td class="bg-success" style="border-right: solid 1px grey; width:30px;">@step.SumsBefore[i]</td>
+                                                            @for (int j = 0; j < step.MatrixAfter[i].Length; j++)
+                                                            {
+                                                                <td class="bg-success text-center">@step.MatrixBefore[i][j]</td>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="border-right: solid 1px grey; width:30px;">@step.SumsBefore[i]</td>
+                                                            @for (int j = 0; j < step.MatrixAfter[i].Length; j++)
+                                                            {
+                                                                <td class="text-center">@step.MatrixBefore[i][j]</td>
+                                                            }
                                                         }
                                                     </tr>
                                                     swapIndex++;

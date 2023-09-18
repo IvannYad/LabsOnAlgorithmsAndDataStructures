@@ -22,56 +22,56 @@ namespace Laba.Services
                 sums[i] = matr[i].Sum(x => x);
             }
 
-            int step = (matr.Length + 1) / 2;
+            int step = (matr.Length) / 2;
             int iteration = 1;
             bool swapped;
             while (step > 0)
             {
-                for (int i = 0; i < step; i++)
+                for (int i = 0; i + step < sums.Length; i++)
                 {
-                    swapped = true;
-                    // Bubble sort with flag.
-                    while (swapped)
+                    swapped = false;
+                    int[] swappableIdexes = GenerateSwappableIndexes(i % step, sums.Length, step);
+
+                    int j = i + step;
+                    while (j - step >= 0)
                     {
-                        swapped = false;
-                        int[] swappableIdexes = GenerateSwappableIndexes(i, sums.Length, step);
-                        for (int j = i; j + step < sums.Length; j += step)
+                        ComparesCount++;
+                        if (sums[j] < sums[j - step])
                         {
-                            ComparesCount++;
-                            if (sums[j] > sums[j + step])
+                            SwipesCount++;
+                            swapped = true;
+                            var matrBefore = (double[][])matr.Clone();
+                            var sumsBefore = (double[])sums.Clone();
+                            Swap(ref sums[j], ref sums[j - step]);
+
+                            SwapRows(ref matr[j], ref matr[j - step]);
+                            var matrAfter = (double[][])matr.Clone();
+                            var sumsAfter = (double[])sums.Clone();
+                            toReturn.Add(new SortingAlgorithmStepResultModelLab2()
                             {
-                                SwipesCount++;
-                                swapped = true;
-                                var matrBefore = (double[][])matr.Clone();
-                                var sumsBefore = (double[])sums.Clone();
-                                Swap(ref sums[j], ref sums[j + step]);
+                                Iteration = iteration++,
+                                Step = step,
+                                SwappableIndexes = swappableIdexes,
+                                MatrixBefore = matrBefore,
+                                MatrixAfter = matrAfter,
+                                SumsBefore = sumsBefore,
+                                SumsAfter = sumsAfter,
+                                Index1ToSwap = j,
+                                Index2ToSwap = j - step
+                            });
 
-                                SwapRows(ref matr[j], ref matr[j + step]);
-                                var matrAfter = (double[][])matr.Clone();
-                                var sumsAfter = (double[])sums.Clone();
-                                toReturn.Add(new SortingAlgorithmStepResultModelLab2()
-                                { 
-                                    Iteration = iteration++, 
-                                    Step = step, 
-                                    SwappableIndexes = swappableIdexes, 
-                                    MatrixBefore = matrBefore,
-                                    MatrixAfter = matrAfter, 
-                                    SumsBefore = sumsBefore,
-                                    SumsAfter = sumsAfter, 
-                                    Index1ToSwap = j, 
-                                    Index2ToSwap = j + step
-                                });
-                            }
+                            j -= step;
+                            continue;
                         }
-                    }
 
+                        break;
+                    }
                 }
 
                 step /= 2;
             }
 
             return toReturn;
-
         }
 
         public void Swap(ref double a, ref double b)
