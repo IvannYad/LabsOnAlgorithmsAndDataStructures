@@ -1,4 +1,5 @@
 ﻿using Laba.Models;
+using Laba.Services.Interfaces.SortingInterfaces;
 
 namespace Laba.Services.Interfaces.InterfacesLab1
 {

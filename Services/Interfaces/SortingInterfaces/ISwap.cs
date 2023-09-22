@@ -1,4 +1,4 @@
-﻿namespace Laba.Services.Interfaces
+﻿namespace Laba.Services.Interfaces.SortingInterfaces
 {
     public interface ISwap<T>
     {
