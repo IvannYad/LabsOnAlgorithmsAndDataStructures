@@ -1,10 +1,14 @@
 using Laba.Services;
 using Laba.Services.Interfaces;
+using Laba.Services.Interfaces.InterfacesLab1;
+using Laba.Services.SortingServicesLab1;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IOrdinarySortingService1, OrdinarySortingService1>();
+builder.Services.AddScoped<ICustomSortingService1, CustomSortingService1>();
 builder.Services.AddScoped<ISortingServiceLab1, SortingServiceLab1>();
 builder.Services.AddScoped<ISortingServiceLab2, SortingServiceLab2>();
 builder.Services.AddScoped<IPrepareCollectionService<string, string[]>, PrepareCollectionServiceLab1>();

@@ -1,10 +1,11 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces;
+using Laba.Services.Interfaces.InterfacesLab1;
 using System.Diagnostics;
 
 namespace Laba.Services.SortingServicesLab1
 {
-    public class OrdinarySortingService1 : ISorting<IEnumerable<int>, int>, IFindMin<int[]>, ISwap<int>
+    public class OrdinarySortingService1 : IOrdinarySortingService1
     {
         public int FindMinIndex(int[] array)
         {

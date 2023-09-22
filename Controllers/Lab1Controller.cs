@@ -1,5 +1,6 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces;
+using Laba.Services.Interfaces.InterfacesLab1;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +10,10 @@ namespace Laba.Controllers
 {
     public class Lab1Controller : Controller
     {
-        private readonly ISortingServiceLab1 _sortingServiceLab1;
+        private readonly ICustomSortingService1 _sortingServiceLab1;
         private readonly IPrepareCollectionService<string, string[]> _prepareCollectionService;
 
-        public Lab1Controller(ISortingServiceLab1 sortingServiceLab1, IPrepareCollectionService<string, string[]> prepareCollectionService)
+        public Lab1Controller(ICustomSortingService1 sortingServiceLab1, IPrepareCollectionService<string, string[]> prepareCollectionService)
         {
             _sortingServiceLab1 = sortingServiceLab1;
             _prepareCollectionService = prepareCollectionService;
@@ -30,7 +31,7 @@ namespace Laba.Controllers
             try
             {
                 laba1VM.Array = _prepareCollectionService.GetCollectionFromString(laba1VM.ArrayString);
-                laba1VM.SortingAlgorithmStepsResult = _sortingServiceLab1.Sort(ref laba1VM.Array, customTaskChecked is "on");
+                laba1VM.SortingAlgorithmStepsResult = _sortingServiceLab1.Sort(ref laba1VM.Array);
                 stopwatch.Stop();
 
                 laba1VM.TimeToSortInMiliseconds = (int)stopwatch.Elapsed.Microseconds;
