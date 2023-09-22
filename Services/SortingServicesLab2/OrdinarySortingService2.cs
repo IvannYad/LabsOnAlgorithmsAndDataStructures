@@ -1,6 +1,7 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces.InterfacesLab2;
 using System;
+using System.Diagnostics;
 
 namespace Laba.Services.SortingServicesLab2
 {
@@ -11,6 +12,8 @@ namespace Laba.Services.SortingServicesLab2
             int[] array = input.ToArray();
             int step = (array.Length) / 2;
             bool swapped;
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             while (step > 0)
             {
                 for (int i = 0; i + step < array.Length; i++)
@@ -33,8 +36,8 @@ namespace Laba.Services.SortingServicesLab2
 
                 step /= 2;
             }
-
-            return 0;
+            watch.Stop();
+            return (int)watch.ElapsedMilliseconds;
         }
 
         public void Swap(ref int a, ref int b)
