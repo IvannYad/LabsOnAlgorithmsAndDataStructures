@@ -1,7 +1,8 @@
-using Laba.Services;
 using Laba.Services.Interfaces;
 using Laba.Services.Interfaces.InterfacesLab1;
 using Laba.Services.Interfaces.InterfacesLab2;
+using Laba.Services.ServicesLab1;
+using Laba.Services.ServicesLab2;
 using Laba.Services.SortingServicesLab1;
 using Laba.Services.SortingServicesLab2;
 

@@ -19,7 +19,7 @@
             </div>
         </div>
     </form>
-    @if (Model.SortingAlgorithmStepsResult is not null)
+    @if (Model.SortingAlgorithmStepsResult is not null && Model.SortingAlgorithmStepsResult.Count is > 0)
     {
         <div class="container row mt-3">
             <table class="table table-hover col-12">
