@@ -1,4 +1,4 @@
-﻿using Laba.Models;
+﻿using Laba.Models.VM;
 using Laba.Services.Interfaces;
 using Laba.Services.Interfaces.InterfacesLab2;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +24,9 @@ namespace Laba.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Lab2VM laba2VM, string customTaskChecked = "off")
+        public IActionResult Index(Lab2VM laba2VM)
         {
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
                 laba2VM.Matrix = _prepareCollectionService
