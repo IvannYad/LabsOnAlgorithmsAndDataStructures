@@ -1,26 +1,33 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces.InterfacesLab2;
+using Laba.Services.Interfaces.SortingInterfaces;
 using System;
+using System.Diagnostics;
 
-namespace Laba.Services.SortingServicesLab2
+namespace Laba.Services.ServicesLab2
 {
     public class CustomSortingService2 : ICustomSortingService2
     {
+        public CustomSortingService2()
+        {
+            Steps = new List<SortingAlgorithmStepResultModelLab2>();
+        }
         public int ComparesCount { get; private set; }
 
         public int SwipesCount { get; private set; }
+        public List<SortingAlgorithmStepResultModelLab2> Steps { get; private set; }
 
-        public List<SortingAlgorithmStepResultModelLab2> Sort(ref double[][] input)
+        public int Sort(ref double[][] input)
         {
-            // List stores information that will be passed to view.
-            List<SortingAlgorithmStepResultModelLab2> toReturn = new();
-
             // sums - auxiliary array that stores sums of matrix rows.
             double[] sums = new double[input.GetLength(0)];
             for (int i = 0; i < input.GetLength(0); i++)
             {
                 sums[i] = input[i].Sum(x => x);
             }
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
 
             int step = (input.Length) / 2;
             int iteration = 1;
@@ -47,7 +54,7 @@ namespace Laba.Services.SortingServicesLab2
                             SwapRows(ref input[j], ref input[j - step]);
                             var matrAfter = (double[][])input.Clone();
                             var sumsAfter = (double[])sums.Clone();
-                            toReturn.Add(new SortingAlgorithmStepResultModelLab2()
+                            Steps.Add(new SortingAlgorithmStepResultModelLab2()
                             {
                                 Iteration = iteration++,
                                 Step = step,
@@ -71,7 +78,8 @@ namespace Laba.Services.SortingServicesLab2
                 step /= 2;
             }
 
-            return toReturn;
+            watch.Stop();
+            return (int)watch.ElapsedTicks;
         }
 
         public void Swap(ref double a, ref double b)

@@ -1,6 +1,6 @@
 ﻿using Laba.Services.Interfaces;
 
-namespace Laba.Services
+namespace Laba.Services.ServicesLab1
 {
     public class PrepareCollectionServiceLab1 : IPrepareCollectionService<string, string[]>
     {

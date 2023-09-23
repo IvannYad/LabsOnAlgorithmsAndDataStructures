@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Laba.Models
+namespace Laba.Models.VM
 {
     public class Lab2VM
     {

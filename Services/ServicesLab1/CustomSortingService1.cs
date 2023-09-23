@@ -1,11 +1,18 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces;
 using Laba.Services.Interfaces.InterfacesLab1;
+using System.Diagnostics;
 
-namespace Laba.Services.SortingServicesLab1
+namespace Laba.Services.ServicesLab1
 {
     public class CustomSortingService1 : ICustomSortingService1
     {
+        public CustomSortingService1()
+        {
+            Steps = new List<SortingAlgorithmStepResultModelLab1>();
+        }
+
+        public List<SortingAlgorithmStepResultModelLab1> Steps { get; private set; }
         public int ComparesCount { get; private set; }
 
         public int FindMinIndex(string[] array)
@@ -25,9 +32,8 @@ namespace Laba.Services.SortingServicesLab1
             return kMin;
         }
 
-        public List<SortingAlgorithmStepResultModelLab1> Sort(ref string[] input)
+        public int Sort(ref string[] input)
         {
-            var result = new List<SortingAlgorithmStepResultModelLab1>();
             string[] tempArray;
             // If calculation of custom task is chosen, remove elements, which length is > 8.
             var tempList = input.ToList();
@@ -40,6 +46,9 @@ namespace Laba.Services.SortingServicesLab1
                 }
             }
 
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
             input = tempList.ToArray();
             tempArray = input.ToArray();
 
@@ -49,10 +58,11 @@ namespace Laba.Services.SortingServicesLab1
                 Swap(ref tempArray[i], ref tempArray[minIndex]);
                 // Next line of code for adding result of each sotring step to ViewModel,
                 // in order to display in webpage.
-                result.Add(new SortingAlgorithmStepResultModelLab1() { Index1ToSwap = i, Index2ToSwap = minIndex, Array = (string[])tempArray.Clone(), LastIndexSorted = i - 1 });
+                Steps.Add(new SortingAlgorithmStepResultModelLab1() { Index1ToSwap = i, Index2ToSwap = minIndex, Array = (string[])tempArray.Clone(), LastIndexSorted = i - 1 });
             }
 
-            return result;
+            watch.Stop();
+            return (int)watch.ElapsedTicks;
         }
 
         public void Swap(ref string a, ref string b)
