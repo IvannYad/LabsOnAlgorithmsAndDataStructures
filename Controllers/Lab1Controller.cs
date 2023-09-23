@@ -31,22 +31,15 @@ namespace Laba.Controllers
             try
             {
                 laba1VM.Array = _prepareCollectionService.GetCollectionFromString(laba1VM.ArrayString);
-                laba1VM.SortingAlgorithmStepsResult = _sortingServiceLab1.Sort(ref laba1VM.Array);
-                stopwatch.Stop();
-
-                laba1VM.TimeToSortInMiliseconds = (int)stopwatch.Elapsed.Microseconds;
+                laba1VM.TimeToSortInMiliseconds = _sortingServiceLab1.Sort(ref laba1VM.Array);
+                laba1VM.SortingAlgorithmStepsResult = _sortingServiceLab1.Steps;
                 laba1VM.ComparesCount = _sortingServiceLab1.ComparesCount;
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Array", "Invalid array input");
             }
-            finally
-            {
-                if (stopwatch.IsRunning)
-                    stopwatch.Stop();
-            }
-
+            
             return View(laba1VM);
         }
     }
