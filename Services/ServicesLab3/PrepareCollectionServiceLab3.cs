@@ -49,7 +49,7 @@ namespace Laba.Services.ServicesLab3
                 return new int[0];
 
             intList.RemoveAt(FindMinIndex(intList.ToArray()));
-            intList.RemoveAt(FindMinIndex(intList.ToArray()));
+            intList.RemoveAt(FindMaxIndex(intList.ToArray()));
 
             return intList.ToArray();
         }

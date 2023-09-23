@@ -3,7 +3,7 @@ using Laba.Services.Interfaces;
 using Laba.Services.Interfaces.InterfacesLab1;
 using System.Diagnostics;
 
-namespace Laba.Services.SortingServicesLab1
+namespace Laba.Services.ServicesLab1
 {
     public class OrdinarySortingService1 : IOrdinarySortingService1
     {
@@ -37,7 +37,7 @@ namespace Laba.Services.SortingServicesLab1
             }
             watch.Stop();
             
-            return (int)watch.ElapsedMilliseconds;
+            return (int)watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)

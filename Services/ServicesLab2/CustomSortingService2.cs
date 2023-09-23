@@ -4,7 +4,7 @@ using Laba.Services.Interfaces.SortingInterfaces;
 using System;
 using System.Diagnostics;
 
-namespace Laba.Services.SortingServicesLab2
+namespace Laba.Services.ServicesLab2
 {
     public class CustomSortingService2 : ICustomSortingService2
     {
@@ -79,7 +79,7 @@ namespace Laba.Services.SortingServicesLab2
             }
 
             watch.Stop();
-            return (int)watch.ElapsedMilliseconds;
+            return (int)watch.ElapsedTicks;
         }
 
         public void Swap(ref double a, ref double b)

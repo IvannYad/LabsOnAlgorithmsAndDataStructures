@@ -1,13 +1,13 @@
 ﻿using Laba.Services.Interfaces.InterfacesLab3;
 using System.Diagnostics;
 
-namespace Laba.Services.SortingServicesLab3
+namespace Laba.Services.ServicesLab3
 {
     public class OrdinarySortingService3 : IOrdinarySortingService3
     {
         public void RecursiveSort(int[] array, int start, int end)
         {
-            if (end - start <= 1)
+            if (end - start < 1)
                 return;
 
             int pivotIndex = end;
@@ -39,7 +39,7 @@ namespace Laba.Services.SortingServicesLab3
 
             watch.Stop();
 
-            return (int)watch.ElapsedMilliseconds;
+            return (int)watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)

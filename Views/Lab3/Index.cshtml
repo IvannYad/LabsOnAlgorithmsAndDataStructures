@@ -1,10 +1,10 @@
-﻿@model Lab1VM
+﻿@model Lab3VM
 
 
 <div class="card-body p-4">
     <form method="post" class="row text-body-secondary">
         <div class="container d-flex justify-content-center align-items-center">
-            <h5>Lab1 Task</h5>
+            <h5>Lab3 Task</h5>
         </div>
         <div class="container row">
             <div class="container col-12">
@@ -24,7 +24,7 @@
         <div class="container row mt-3">
             <table class="table table-hover col-12">
                 <thead>
-                        <tr class="table-active table-dark">
+                    <tr class="table-active table-dark">
                         <td scope="col" class="text-warning">Iteration</td>
                         @for (int i = 0; i < Model.Array.Length; i++)
                         {
@@ -35,34 +35,39 @@
                 <tbody>
                     <tr class="table-light">
                         <td>Before sorting</td>
-                        @foreach (var item in Model.Array)
+                        @foreach (var item in Model.Array.Select(p => p * -1.0 / 1000000))
                         {
                             <td>@string.Format($"{item}")</td>
                         }
                     </tr>
                     @foreach (var item in Model.SortingAlgorithmStepsResult)
                     {
-                        <tr class="table-light">
+                        <tr class="table-light p-1">
                             <td class="col-2">
                                 @(Array.IndexOf(Model.SortingAlgorithmStepsResult.ToArray(), item) + 1)
                             </td>
                             @for (int i = 0; i < item.Array.Length; i++)
                             {
-                                if (i <= item.LastIndexSorted)
+                                if (i >= item.StartIndex && i <= item.EndIndex)
                                 {
-                                    <td class="bg-success">@string.Format($"{item.Array[i]}")</td>
-                                    continue;
+                                    if (i == item.PivotIndex)
+                                    {
+                                        <td style="border: 3px solid red; background-color: orange">@string.Format($"{item.Array[i]}")</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="border: 1px solid darkorange; background-color: orange">@string.Format($"{item.Array[i]}")</td>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <td>@string.Format($"{item.Array[i]}")</td>
                                 }
 
-                                if (i == item.Index1ToSwap || i == item.Index2ToSwap)
-                                {
-                                    <td class="bg-danger">@string.Format($"{item.Array[i]}")</td>
-                                    continue;
-                                }
-                            
-                                <td>@string.Format($"{item.Array[i]}")</td>
+                                
                             }
-                        </tr>    
+                        </tr>
                     }
                     <tr class="table-light">
                         <td>Result</td>
@@ -81,7 +86,7 @@
             Number of compare oeprations : @Model.ComparesCount
         </div>
     }
-    
+
 </div>
 
 
