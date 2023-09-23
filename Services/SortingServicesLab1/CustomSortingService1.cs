@@ -1,9 +1,10 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces;
+using Laba.Services.Interfaces.InterfacesLab1;
 
-namespace Laba.Services
+namespace Laba.Services.SortingServicesLab1
 {
-    public class SortingServiceLab1 : ISortingServiceLab1
+    public class CustomSortingService1 : ICustomSortingService1
     {
         public int ComparesCount { get; private set; }
 
@@ -24,27 +25,23 @@ namespace Laba.Services
             return kMin;
         }
 
-        public List<SortingAlgorithmStepResultModelLab1> Sort(ref string[] array, bool customTaskChecked = false)
+        public List<SortingAlgorithmStepResultModelLab1> Sort(ref string[] input)
         {
             var result = new List<SortingAlgorithmStepResultModelLab1>();
             string[] tempArray;
             // If calculation of custom task is chosen, remove elements, which length is > 8.
-            if (customTaskChecked)
+            var tempList = input.ToList();
+            for (int i = 0; i < tempList.Count; i++)
             {
-                var tempList = array.ToList();
-                for (int i = 0; i < tempList.Count; i++)
+                if (tempList[i].Length > 8)
                 {
-                    if (tempList[i].Length > 8)
-                    {
-                        tempList.RemoveAt(i);
-                        i--;
-                    }
+                    tempList.RemoveAt(i);
+                    i--;
                 }
-
-                array = tempList.ToArray();
             }
 
-            tempArray = (string[])array.Clone();
+            input = tempList.ToArray();
+            tempArray = input.ToArray();
 
             for (int i = 0; i < tempArray.Length - 1; i++)
             {

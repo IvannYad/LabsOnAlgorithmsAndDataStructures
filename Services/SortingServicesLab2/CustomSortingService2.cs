@@ -1,28 +1,28 @@
 ﻿using Laba.Models;
-using Laba.Services.Interfaces;
-using System.Runtime.CompilerServices;
+using Laba.Services.Interfaces.InterfacesLab2;
+using System;
 
-namespace Laba.Services
+namespace Laba.Services.SortingServicesLab2
 {
-    public class SortingServiceLab2 : ISortingServiceLab2
+    public class CustomSortingService2 : ICustomSortingService2
     {
         public int ComparesCount { get; private set; }
 
         public int SwipesCount { get; private set; }
 
-        public List<SortingAlgorithmStepResultModelLab2> Sort(ref double[][] matr, bool customTaskChecked = false)
+        public List<SortingAlgorithmStepResultModelLab2> Sort(ref double[][] input)
         {
             // List stores information that will be passed to view.
-            List<SortingAlgorithmStepResultModelLab2> toReturn = new ();
-            
+            List<SortingAlgorithmStepResultModelLab2> toReturn = new();
+
             // sums - auxiliary array that stores sums of matrix rows.
-            double[] sums = new double[matr.GetLength(0)];
-            for (int i = 0; i < matr.GetLength(0); i++)
+            double[] sums = new double[input.GetLength(0)];
+            for (int i = 0; i < input.GetLength(0); i++)
             {
-                sums[i] = matr[i].Sum(x => x);
+                sums[i] = input[i].Sum(x => x);
             }
 
-            int step = (matr.Length) / 2;
+            int step = (input.Length) / 2;
             int iteration = 1;
             bool swapped;
             while (step > 0)
@@ -40,12 +40,12 @@ namespace Laba.Services
                         {
                             SwipesCount++;
                             swapped = true;
-                            var matrBefore = (double[][])matr.Clone();
+                            var matrBefore = (double[][])input.Clone();
                             var sumsBefore = (double[])sums.Clone();
                             Swap(ref sums[j], ref sums[j - step]);
 
-                            SwapRows(ref matr[j], ref matr[j - step]);
-                            var matrAfter = (double[][])matr.Clone();
+                            SwapRows(ref input[j], ref input[j - step]);
+                            var matrAfter = (double[][])input.Clone();
                             var sumsAfter = (double[])sums.Clone();
                             toReturn.Add(new SortingAlgorithmStepResultModelLab2()
                             {
@@ -84,9 +84,10 @@ namespace Laba.Services
         public void SwapRows(ref double[] a, ref double[] b)
         {
             var temp = (double[])a.Clone();
-            a = b; 
+            a = b;
             b = temp;
         }
+
         private int[] GenerateSwappableIndexes(int start, int end, int step)
         {
             List<int> toReturn = new List<int>();
