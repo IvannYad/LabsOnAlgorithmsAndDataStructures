@@ -34,6 +34,11 @@ namespace Laba.Services.ServicesLab4
 
         public int Sort(ref int[] input)
         {
+            if (input.Length < 2)
+            {
+                throw new ArgumentException();
+            }
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
