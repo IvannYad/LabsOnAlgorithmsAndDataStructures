@@ -24,7 +24,7 @@ namespace Laba.Services.ServicesLab4
                 Merge(array, start, end, mid);
                 Steps.Add(new SortingAlgorithmStepResultModelLab4()
                 {
-                    Array = array.Select(i => i * -1.0 / 1000000).ToArray(),
+                    Array = array.Select(i => i * 1.0 / 1000000).ToArray(),
                     StartIndex = start,
                     EndIndex = end
                 });
@@ -59,13 +59,13 @@ namespace Laba.Services.ServicesLab4
             {
                 help1[h] = array[low + h];
             }
-            help1[help1.Length - 1] = 3409509;
+            help1[help1.Length - 1] = 1_000_000_000;
             help2 = new int[high - mid + 1];
             for (int r = 0; r < help2.Length - 1; r++)
             {
                 help2[r] = array[mid + 1 + r];
             }
-            help2[help2.Length - 1] = 3409509;
+            help2[help2.Length - 1] = 1_000_000_000;
             int i = 0, j = 0;
             for (int k = low; k <= high; k++)
             {

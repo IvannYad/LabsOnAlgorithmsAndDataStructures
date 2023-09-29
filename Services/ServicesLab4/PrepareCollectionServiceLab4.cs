@@ -1,5 +1,6 @@
 ﻿using Laba.Services.Interfaces.SortingInterfaces;
 using Laba.Services.Interfaces;
+using Laba.Models.VM;
 
 namespace Laba.Services.ServicesLab4
 {
@@ -10,8 +11,14 @@ namespace Laba.Services.ServicesLab4
             var intList = inputCollection
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .Select(e => double.Parse(e))
-                .Select(d => (int)(d * 1000000 * -1))
                 .ToList();
+
+            if (intList.Any(i => i >= 1_000))
+            {
+                throw new ArgumentException();
+            }
+
+            intList = intList.Select(d => d * 1000000).ToList();
 
             if (intList.Count <= 2)
                 return new int[0];
@@ -20,7 +27,7 @@ namespace Laba.Services.ServicesLab4
 
             intList = intList.Where(i => i <= avg).ToList();
 
-            return intList.ToArray();
+            return intList.Select(d => (int)d).ToArray();
         }
     }
 }
