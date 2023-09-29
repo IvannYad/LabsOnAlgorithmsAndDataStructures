@@ -9,6 +9,7 @@ namespace Laba.Models.VM
         [Required]
         public int[] Array;
         public List<SortingAlgorithmStepResultModelLab4> SortingAlgorithmStepsResult { get; set; }
+        public double Average { get; set; }
         public int TimeToSortInMiliseconds { get; set; }
 
         public int ComparesCount { get; set; }

@@ -29,6 +29,9 @@ namespace Laba.Controllers
             try
             {
                 lab4VM.Array = _prepareCollectionService.GetCollectionFromString(lab4VM.ArrayString);
+                lab4VM.Average = lab4VM.Array.Average(i => i);
+                lab4VM.Array = lab4VM.Array.Where(i => i <= lab4VM.Average).ToArray();
+
                 var tempArray = lab4VM.Array.ToArray();
                 lab4VM.TimeToSortInMiliseconds = _customSortingService4.Sort(ref tempArray);
                 lab4VM.SortingAlgorithmStepsResult = _customSortingService4.Steps;

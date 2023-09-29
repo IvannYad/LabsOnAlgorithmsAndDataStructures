@@ -6,6 +6,7 @@ namespace Laba.Services.ServicesLab4
 {
     public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, int[]>
     {
+
         public int[] GetCollectionFromString(string inputCollection)
         {
             var intList = inputCollection
@@ -22,10 +23,6 @@ namespace Laba.Services.ServicesLab4
 
             if (intList.Count <= 2)
                 return new int[0];
-
-            double avg = intList.Average(i => i);
-
-            intList = intList.Where(i => i <= avg).ToList();
 
             return intList.Select(d => (int)d).ToArray();
         }
