@@ -4,16 +4,8 @@ using System.Diagnostics;
 
 namespace Laba.Services.ServicesLab4
 {
-    public class CustomSortingService4 : ICustomSortingService4
+    public class OrdinarySortingService4 : IOrdinarySortingService4
     {
-        public CustomSortingService4()
-        {
-            Steps = new List<SortingAlgorithmStepResultModelLab4>();
-        }
-        public List<SortingAlgorithmStepResultModelLab4> Steps { get; private set; }
-
-        public int ComparesCount { get; private set; }
-
         public void RecursiveSort(int[] array, int start, int end)
         {
             if (start < end)
@@ -22,13 +14,6 @@ namespace Laba.Services.ServicesLab4
                 RecursiveSort(array, start, mid);
                 RecursiveSort(array, mid + 1, end);
                 Merge(array, start, end, mid);
-                Steps.Add(new SortingAlgorithmStepResultModelLab4()
-                {
-                    Array = array.Select(i => i * -1.0 / 1000000).ToArray(),
-                    StartIndex = start,
-                    EndIndex = end
-                });
-
             }
         }
 
@@ -69,7 +54,6 @@ namespace Laba.Services.ServicesLab4
             int i = 0, j = 0;
             for (int k = low; k <= high; k++)
             {
-                ComparesCount++;
                 if (help1[i] <= help2[j])
                 {
                     array[k] = help1[i];
