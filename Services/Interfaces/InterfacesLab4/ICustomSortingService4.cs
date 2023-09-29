@@ -1,11 +1,11 @@
 ﻿using Laba.Models;
 using Laba.Services.Interfaces.SortingInterfaces;
 
-namespace Laba.Services.Interfaces.InterfacesLab3
+namespace Laba.Services.Interfaces.InterfacesLab4
 {
-    public interface ICustomSortingService3: ISorting<int[], int>, ISwap<int>
+    public interface ICustomSortingService4 : ISorting<double[], double>, ISwap<double>
     {
-        public void RecursiveSort(int[] array, int start, int end);
+        void RecursiveSort(double[] array, int start, int end);
         public List<SortingAlgorithmStepResultModelLab3> Steps { get; }
         public int ComparesCount { get; }
     }
