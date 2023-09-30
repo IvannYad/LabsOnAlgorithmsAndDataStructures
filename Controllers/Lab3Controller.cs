@@ -1,6 +1,7 @@
 ﻿using Laba.Models.VM;
 using Laba.Services.Interfaces;
 using Laba.Services.Interfaces.InterfacesLab3;
+using Laba.Services.ServicesLab3;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laba.Controllers
@@ -10,10 +11,10 @@ namespace Laba.Controllers
         private readonly ICustomSortingService3 _customSortingService3;
         private readonly IPrepareCollectionService<string, int[]> _prepareCollectionService;
 
-        public Lab3Controller(ICustomSortingService3 customSortingService3, IPrepareCollectionService<string, int[]> prepareCollectionService)
+        public Lab3Controller(ICustomSortingService3 customSortingService3)
         {
             _customSortingService3 = customSortingService3;
-            _prepareCollectionService = prepareCollectionService;
+            _prepareCollectionService = new PrepareCollectionServiceLab3();
         }
 
         [HttpGet]

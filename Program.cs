@@ -22,8 +22,6 @@ builder.Services.AddScoped<IOrdinarySortingService4, OrdinarySortingService4>();
 builder.Services.AddScoped<ICustomSortingService4, CustomSortingService4>();
 builder.Services.AddScoped<IPrepareCollectionService<string, string[]>, PrepareCollectionServiceLab1>();
 builder.Services.AddScoped<IPrepareCollectionService<string[], double[][]>, PrepareCollectionServiceLab2>();
-builder.Services.AddScoped<IPrepareCollectionService<string, int[]>, PrepareCollectionServiceLab3>();
-builder.Services.AddScoped<IPrepareCollectionService<string, int[]>, PrepareCollectionServiceLab4>();
 
 
 var app = builder.Build();
