@@ -8,8 +8,8 @@ namespace Laba.Models.VM
         public string ArrayString { get; set; }
         [Required]
         public int[] Array;
-        public int[] ArrayWithIndexes { get; set; }
-        public int[] ArrayWithAddedIndexes { get; set; }
+        public (double, int)[] ArrayWithIndexes { get; set; }
+        public (double, int)[] ArrayWithAddedIndexes { get; set; }
         public List<SortingAlgorithmStepResultModelLab5> SortingAlgorithmStepsResult { get; set; }
         public int TimeToSortInTicks { get; set; }
 
