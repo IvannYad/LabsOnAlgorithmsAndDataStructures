@@ -37,7 +37,7 @@ namespace Laba.Controllers
                     return View(laba2VM);
                 }
 
-                laba2VM.TimeToSortInMiliseconds = _sortingServiceLab2.Sort(ref laba2VM.Matrix);
+                laba2VM.TimeToSortInTicks = _sortingServiceLab2.Sort(ref laba2VM.Matrix);
                 laba2VM.SortingAlgorithmStepsResult = _sortingServiceLab2.Steps;
                 laba2VM.ComparesCount = _sortingServiceLab2.ComparesCount;
                 laba2VM.SwipesCount = _sortingServiceLab2.SwipesCount;

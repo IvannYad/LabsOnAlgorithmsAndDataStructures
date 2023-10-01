@@ -11,7 +11,7 @@ namespace Laba.Models.VM
         [Required]
         public string[] Array;
         public List<SortingAlgorithmStepResultModelLab1> SortingAlgorithmStepsResult { get; set; }
-        public int TimeToSortInMiliseconds { get; set; }
+        public int TimeToSortInTicks { get; set; }
 
         public int ComparesCount;
     }

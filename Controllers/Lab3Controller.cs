@@ -30,7 +30,7 @@ namespace Laba.Controllers
             {
                 lab3VM.Array = _prepareCollectionService.GetCollectionFromString(lab3VM.ArrayString);
                 var tempArray = lab3VM.Array.ToArray();
-                lab3VM.TimeToSortInMiliseconds = _customSortingService3.Sort(ref tempArray);
+                lab3VM.TimeToSortInTicks = _customSortingService3.Sort(ref tempArray);
                 lab3VM.SortingAlgorithmStepsResult = _customSortingService3.Steps;
                 lab3VM.ComparesCount = _customSortingService3.ComparesCount;
             }

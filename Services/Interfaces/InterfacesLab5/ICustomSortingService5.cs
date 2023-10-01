@@ -6,7 +6,7 @@ namespace Laba.Services.Interfaces.InterfacesLab5
 {
     public interface ICustomSortingService5 : ISorting<int[], int>, ISwap<int>
     {
-        public List<SortingAlgorithmStepResultModelLab4> Steps { get; }
+        public List<SortingAlgorithmStepResultModelLab5> Steps { get; }
         public int ComparesCount { get; }
     }
 }

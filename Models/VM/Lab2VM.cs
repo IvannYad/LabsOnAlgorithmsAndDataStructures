@@ -9,7 +9,7 @@ namespace Laba.Models.VM
         [Required]
         public double[][] Matrix;
         public List<SortingAlgorithmStepResultModelLab2> SortingAlgorithmStepsResult { get; set; }
-        public int TimeToSortInMiliseconds { get; set; }
+        public int TimeToSortInTicks { get; set; }
 
         public int SwipesCount { get; set; }
         public int ComparesCount { get; set; }

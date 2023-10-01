@@ -34,7 +34,7 @@ namespace Laba.Controllers
                 lab4VM.Array = lab4VM.Array.Where(i => i.Item2 <= lab4VM.Average).ToArray();
 
                 var tempArray = lab4VM.Array.ToArray();
-                lab4VM.TimeToSortInMiliseconds = _customSortingService4.Sort(ref tempArray);
+                lab4VM.TimeToSortInTicks = _customSortingService4.Sort(ref tempArray);
                 lab4VM.SortingAlgorithmStepsResult = _customSortingService4.Steps;
                 lab4VM.ComparesCount = _customSortingService4.ComparesCount;
             }
