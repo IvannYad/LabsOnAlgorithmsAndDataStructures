@@ -8,5 +8,7 @@ namespace Laba.Services.Interfaces.InterfacesLab5
     {
         public List<SortingAlgorithmStepResultModelLab5> Steps { get; }
         public int ComparesCount { get; }
+        public (double, int)[] IndexesArray { get; }
+        public (double, int)[] AddedIndexesArray { get; }
     }
 }
