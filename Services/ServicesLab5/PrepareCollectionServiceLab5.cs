@@ -12,7 +12,7 @@ namespace Laba.Services.ServicesLab5
         {
             var intList = inputCollection
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select((e, i) => i % 2 == 0 ? Math.Sqrt(Math.Abs(double.Parse(e) - 10)) : double.Parse(e))
+                .Select(e => int.Parse(e[e.Length - 1].ToString()) % 2 == 0 ? Math.Sqrt(Math.Abs(double.Parse(e) - 10)) : double.Parse(e))
                 .Select(d => (int)(d * 100))
                 .ToList();
         
