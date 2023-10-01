@@ -1,30 +1,33 @@
 ﻿using Laba.Services.Interfaces.SortingInterfaces;
 using Laba.Services.Interfaces;
 using Laba.Models.VM;
+using System.Runtime.InteropServices;
 
 namespace Laba.Services.ServicesLab4
 {
-    public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, int[]>
+    public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, Dictionary<string, int>>
     {
 
-        public int[] GetCollectionFromString(string inputCollection)
+        public Dictionary<string, int> GetCollectionFromString(string inputCollection)
         {
-            var intList = inputCollection
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(e => double.Parse(e))
-                .ToList();
+            var elemList = inputCollection
+                .Split("/", StringSplitOptions.RemoveEmptyEntries);
 
-            if (intList.Any(i => i >= 1_000))
+            Dictionary<string, double> products = elemList
+                .Select(p => p.Split(":", StringSplitOptions.RemoveEmptyEntries))
+                .ToDictionary(p => p[0], p => double.Parse(p[1]));
+
+            if (products.Values.Any(i => i >= 1_000))
             {
                 throw new ArgumentException();
             }
 
-            intList = intList.Select(d => d * 1000000).ToList();
+            var toReturn = products.ToDictionary(p => p.Key, p => (int)p.Value * 1000000);
 
-            if (intList.Count <= 2)
-                return new int[0];
+            if (products.Count <= 2)
+                return new Dictionary<string, int>();
 
-            return intList.Select(d => (int)d).ToArray();
+            return toReturn;
         }
     }
 }
