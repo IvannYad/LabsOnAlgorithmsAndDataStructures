@@ -8,5 +8,6 @@ namespace Laba.Models
         public double[] Array { get; set; }
 
         public int CurrentIndex { get; set; }
+        public int[] SortedIndexes {  get; set; }
     }
 }
