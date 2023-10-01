@@ -14,17 +14,17 @@ namespace Laba.Services.ServicesLab4
 
         public int ComparesCount { get; private set; }
 
-        public void RecursiveSort(int[] array, int start, int end)
+        public void RecursiveSort((string, long)[] input, int start, int end)
         {
             if (start < end)
             {
                 int mid = (start + end) / 2;
-                RecursiveSort(array, start, mid);
-                RecursiveSort(array, mid + 1, end);
-                Merge(array, start, end, mid);
+                RecursiveSort(input, start, mid);
+                RecursiveSort(input, mid + 1, end);
+                Merge(input, start, end, mid);
                 Steps.Add(new SortingAlgorithmStepResultModelLab4()
                 {
-                    Array = array.Select(i => i * 1.0 / 1000000).ToArray(),
+                    Array = input.Select(p => (p.Item1, p.Item2 * 1.0 / 1000000)).ToArray(),
                     StartIndex = start,
                     EndIndex = end
                 });
@@ -32,7 +32,7 @@ namespace Laba.Services.ServicesLab4
             }
         }
 
-        public int Sort(ref int[] input)
+        public int Sort(ref (string, long)[] input)
         {
             if (input.Length < 2)
             {
@@ -49,43 +49,43 @@ namespace Laba.Services.ServicesLab4
             return (int)watch.ElapsedTicks;
         }
 
-        public void Swap(ref int a, ref int b)
+        public void Merge((string, long)[] input, int low, int high, int mid)
         {
-            int t = a;
-            a = b;
-            b = t;
-        }
-
-        public void Merge(int[] array, int low, int high, int mid)
-        {
-            int[] help1, help2;
-            help1 = new int[mid - low + 2];
+            (string, long)[] help1, help2;
+            help1 = new (string, long)[mid - low + 2];
             for (int h = 0; h < help1.Length - 1; h++)
             {
-                help1[h] = array[low + h];
+                help1[h] = input[low + h];
             }
-            help1[help1.Length - 1] = 1_000_000_000;
-            help2 = new int[high - mid + 1];
+            help1[help1.Length - 1].Item1 = "ZZZZZZZ";
+            help2 = new (string, long)[high - mid + 1];
             for (int r = 0; r < help2.Length - 1; r++)
             {
-                help2[r] = array[mid + 1 + r];
+                help2[r] = input[mid + 1 + r];
             }
-            help2[help2.Length - 1] = 1_000_000_000;
+            help2[help2.Length - 1].Item1 = "ZZZZZZZ";
             int i = 0, j = 0;
             for (int k = low; k <= high; k++)
             {
                 ComparesCount++;
-                if (help1[i] <= help2[j])
+                if (help1[i].Item1.CompareTo(help2[j].Item1) == -1)
                 {
-                    array[k] = help1[i];
+                    input[k] = help1[i];
                     i++;
                 }
                 else
                 {
-                    array[k] = help2[j];
+                    input[k] = help2[j];
                     j++;
                 }
             }
+        }
+
+        public void Swap(ref (string, long) a, ref (string, long) b)
+        {
+            (string, long) t = a;
+            a = b;
+            b = t;
         }
     }
 }
