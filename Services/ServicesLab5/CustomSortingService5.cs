@@ -26,9 +26,6 @@ namespace Laba.Services.ServicesLab5
                 throw new ArgumentException("Too small input");
             }
 
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
             Dictionary<int, int> indexesDict = new();
             for (int i = 0; i < input.Length; i++)
             {
@@ -52,7 +49,9 @@ namespace Laba.Services.ServicesLab5
 
             double[] result = new double[input.Length];
             result = result.Select(_ => -1.0).ToArray();
-
+            
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             // Populate result array with elements in sorted order.
             List<int> sortedIndexes = new List<int>();
             for (int i = 0; i < input.Length; i++)
