@@ -38,9 +38,9 @@
                 <tbody>
                     <tr class="table-light">
                         <td>Before sorting</td>
-                        @foreach (var item in Model.Array.Select(p => p * 1.0 / 1000000))
+                        @foreach (var item in Model.Array)
                         {
-                            <td>@string.Format($"{item}")</td>
+                            <td>@string.Format($"{item.Item1} : {item.Item2 * 1.0 / 1000000}")</td>
                         }
                     </tr>
                     @foreach (var item in Model.SortingAlgorithmStepsResult)
@@ -53,14 +53,12 @@
                             {
                                 if (i >= item.StartIndex && i <= item.EndIndex)
                                 {
-                                     <td style="background-color: orange">@string.Format($"{item.Array[i]}")</td>
+                                     <td style="background-color: orange">@string.Format($"{item.Array[i].Item1} : {item.Array[i].Item2}")</td>
                                 }
                                 else
                                 {
-                                    <td>@string.Format($"{item.Array[i]}")</td>
+                                    <td>@string.Format($"{item.Array[i].Item1} : {item.Array[i].Item2}")</td>
                                 }
-
-
                             }
                         </tr>
                     }
@@ -68,7 +66,7 @@
                         <td>Result</td>
                         @foreach (var item in Model.SortingAlgorithmStepsResult.Last().Array)
                         {
-                            <td class="bg-success">@string.Format($"{item}")</td>
+                            <td class="bg-success">@string.Format($"{item.Item1} : {item.Item2}")</td>
                         }
                     </tr>
                 </tbody>
