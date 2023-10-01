@@ -9,6 +9,7 @@ namespace Laba.Models.VM
         [Required]
         public int[] Array;
         public int[] ArrayWithIndexes { get; set; }
+        public int[] ArrayWithAddedIndexes { get; set; }
         public List<SortingAlgorithmStepResultModelLab5> SortingAlgorithmStepsResult { get; set; }
         public int TimeToSortInTicks { get; set; }
 
