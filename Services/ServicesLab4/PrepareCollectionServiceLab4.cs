@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Laba.Services.ServicesLab4
 {
-    public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, (string, int)[]>
+    public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, (string, long)[]>
     {
 
-        public (string, int)[] GetCollectionFromString(string inputCollection)
+        public (string, long)[] GetCollectionFromString(string inputCollection)
         {
             var elemList = inputCollection
                 .Split("/", StringSplitOptions.RemoveEmptyEntries);
@@ -17,15 +17,22 @@ namespace Laba.Services.ServicesLab4
                 .Select(p => p.Split(":", StringSplitOptions.RemoveEmptyEntries))
                 .ToDictionary(p => p[0], p => double.Parse(p[1]));
 
-            if (products.Values.Any(i => i >= 1_000))
+            // Price validation.
+            if (products.Values.Any(i => i >= 10_000 || i <= 0))
             {
                 throw new ArgumentException();
             }
 
-            (string, int)[] toReturn = products.Select(p => (p.Key, (int)p.Value * 1000000)).ToArray();
+            // Validation for product title: product title must begin with capital letter.
+            if (products.Keys.Any(p => char.IsLower(p[0])))
+            {
+                throw new ArgumentException();
+            }
+
+            (string, long)[] toReturn = products.Select(p => (p.Key, (long)(p.Value * 1000000))).ToArray();
 
             if (products.Count <= 2)
-                return new (string, int)[0];
+                return new (string, long)[0];
 
             return toReturn;
         }
