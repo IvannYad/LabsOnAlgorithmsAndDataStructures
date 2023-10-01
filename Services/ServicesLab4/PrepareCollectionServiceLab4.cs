@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Laba.Services.ServicesLab4
 {
-    public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, Dictionary<string, int>>
+    public class PrepareCollectionServiceLab4 : IPrepareCollectionService<string, (string, int)[]>
     {
 
-        public Dictionary<string, int> GetCollectionFromString(string inputCollection)
+        public (string, int)[] GetCollectionFromString(string inputCollection)
         {
             var elemList = inputCollection
                 .Split("/", StringSplitOptions.RemoveEmptyEntries);
@@ -22,10 +22,10 @@ namespace Laba.Services.ServicesLab4
                 throw new ArgumentException();
             }
 
-            var toReturn = products.ToDictionary(p => p.Key, p => (int)p.Value * 1000000);
+            (string, int)[] toReturn = products.Select(p => (p.Key, (int)p.Value * 1000000)).ToArray();
 
             if (products.Count <= 2)
-                return new Dictionary<string, int>();
+                return new (string, int)[0];
 
             return toReturn;
         }
