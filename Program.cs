@@ -3,10 +3,12 @@ using Laba.Services.Interfaces.InterfacesLab1;
 using Laba.Services.Interfaces.InterfacesLab2;
 using Laba.Services.Interfaces.InterfacesLab3;
 using Laba.Services.Interfaces.InterfacesLab4;
+using Laba.Services.Interfaces.InterfacesLab5;
 using Laba.Services.ServicesLab1;
 using Laba.Services.ServicesLab2;
 using Laba.Services.ServicesLab3;
 using Laba.Services.ServicesLab4;
+using Laba.Services.ServicesLab5;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ builder.Services.AddScoped<IOrdinarySortingService3, OrdinarySortingService3>();
 builder.Services.AddScoped<ICustomSortingService3, CustomSortingService3>();
 builder.Services.AddScoped<IOrdinarySortingService4, OrdinarySortingService4>();
 builder.Services.AddScoped<ICustomSortingService4, CustomSortingService4>();
+builder.Services.AddScoped<IOrdinarySortingService5, OrdinarySortingService5>();
+builder.Services.AddScoped<ICustomSortingService5, CustomSortingService5>();
 builder.Services.AddScoped<IPrepareCollectionService<string, string[]>, PrepareCollectionServiceLab1>();
 builder.Services.AddScoped<IPrepareCollectionService<string[], double[][]>, PrepareCollectionServiceLab2>();
 
