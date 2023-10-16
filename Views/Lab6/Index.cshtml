@@ -1,6 +1,6 @@
-﻿@model int[]
+﻿@model Lab6VM
 @{
-    string visible = "hidden";
+    string visible = Model.IsDataPopulated ? "" : "hidden";
 }
 <div class="card-body p-4">
     <form method="post" class="row text-body-secondary">
@@ -10,18 +10,18 @@
         <div class="container row d-flex justify-content-around mt-4 col-12">
             <div class="container col-3">
                 <label for="arrayInput" class="m-1">Enter number of elements </label>
-                <input type="text" class="form-control border-2" >
-                <span  class="ms-2 text-danger"></span>
+                <input asp-for="NumberOfElementsString" class="form-control border-2" placeholder="num1,num2, ... numN" id="arrayInput">
+                <span asp-validation-for="NumberOfElementsString" class="ms-2 text-danger"></span>
             </div>
             <div class="container col-3">
-                <label for="arrayInput" class="m-1">Enter lower bound </label>
-                <input @* asp-for="" *@ class="form-control border-2" >
-                <span @* asp-validation-for="" *@ class="ms-2 text-danger"></span>
+                <label for="lowerBound" class="m-1">Enter lower bound </label>
+                <input asp-for="LowerBound" class="form-control border-2" id="lowerBound">
+                <span asp-validation-for="LowerBound" class="ms-2 text-danger"></span>
             </div>
             <div class="container col-3">
-                <label for="arrayInput" class="m-1">Enter upper bound </label>
-                <input @* asp-for="" *@ class="form-control border-2" >
-                <span @* asp-validation-for="" *@ class="ms-2 text-danger"></span>
+                <label for="upperInput" class="m-1">Enter upper bound </label>
+                <input asp-for="UpperBound" class="form-control border-2" id="upperInput">
+                <span asp-validation-for="UpperBound" class="ms-2 text-danger"></span>
             </div>
             <div class="container row mt-2 col-11">
                 <button type="submit" class="btn btn-dark text-warning col-3 mt-2">Submit</button>
@@ -29,7 +29,7 @@
         </div>
     </form>
     <div class="container row col-2 m-4">
-        <button onclick="return add(arr)" class="btn btn-dark text-warning col-12 m-2">Simulate graph</button>
+        <button onclick="return add(numberOfElements, selectionSort, shellSort, quickSort, mergeSort, countSort)" class="btn btn-dark text-warning col-12 m-2" @visible>Simulate graph</button>
     </div>
     
 </div>
@@ -46,6 +46,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="/js/graph.js"></script>
     <script>
-        var arr = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model)');
+        var numberOfElements = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.NumberOfElements)');
+        var selectionSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.SelectionSortTimes)');
+        var shellSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ShellSortTimes)');
+        var quickSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.QuickSortTimes)');
+        var mergeSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.MergeSortTimes)');
+        var countSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.CountSortTimes)');
     </script>
 }

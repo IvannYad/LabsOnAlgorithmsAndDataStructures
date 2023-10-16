@@ -6,7 +6,7 @@ namespace Laba.Models.VM
     public class Lab6VM
     {
         [Required]
-        public int NumberOfElementsString { get; set; }
+        public string NumberOfElementsString { get; set; }
         public int[] NumberOfElements { get; set; }
         [Required]
         [Range(1, 1000)]
