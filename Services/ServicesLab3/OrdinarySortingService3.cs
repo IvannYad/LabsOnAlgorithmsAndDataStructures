@@ -30,11 +30,8 @@ namespace Laba.Services.ServicesLab3
             RecursiveSort(array, swapMarker + 1, end);
         }
 
-        public int Sort(ref int[] input)
+        public double Sort(ref int[] input)
         {
-            if (input.Length <= 1)
-                return 0;
-
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
             input = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
@@ -44,7 +41,7 @@ namespace Laba.Services.ServicesLab3
 
             watch.Stop();
 
-            return (int)watch.ElapsedTicks;
+            return watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)

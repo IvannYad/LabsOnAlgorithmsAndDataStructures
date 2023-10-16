@@ -2,7 +2,7 @@
 
 namespace Laba.Services.Interfaces.InterfacesLab1
 {
-    public interface IOrdinarySortingService1: ISorting<int[], int>, IFindMin<int[]>, ISwap<int>
+    public interface IOrdinarySortingService1: ISorting<int[], double>, IFindMin<int[]>, ISwap<int>
     {
         public void PopulateBounds(int lower, int upper, int length);
     }

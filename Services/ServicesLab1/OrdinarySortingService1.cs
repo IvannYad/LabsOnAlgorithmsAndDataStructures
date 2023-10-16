@@ -26,7 +26,7 @@ namespace Laba.Services.ServicesLab1
             return kMin;
         }
 
-        public int Sort(ref int[] inputCollection)
+        public double Sort(ref int[] inputCollection)
         {
             int[] tempList;
             
@@ -41,7 +41,7 @@ namespace Laba.Services.ServicesLab1
             }
             watch.Stop();
             
-            return (int)watch.ElapsedTicks;
+            return watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)

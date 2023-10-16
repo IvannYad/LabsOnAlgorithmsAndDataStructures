@@ -11,21 +11,21 @@ namespace Laba.Services.ServicesLab5
         private int _lower;
         private int _upper;
         private int _length;
-        public int Sort(ref int[] input)
+        public double Sort(ref int[] input)
         {
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
-            input = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
-            watch.Start();
+            input = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper) - _lower).ToArray();
             int[] indexesArray = new int[_upper - _lower];
+            int[] result = new int[input.Length];
+            result = result.Select(_ => -1).ToArray();
+
+            watch.Start();
             input.ToList().ForEach(i => indexesArray[i]++);
-            for (int i = _lower; i < indexesArray.Length; i++)
+            for (int i = 1; i < indexesArray.Length; i++)
             {
                 indexesArray[i] = indexesArray[i] + indexesArray[i - 1];
             }
-
-            int[] result = new int[input.Length];
-            result = result.Select(_ => -1).ToArray();
 
             // Populate result array with elements in sorted order.
             for (int i = 0; i < input.Length; i++)
@@ -35,7 +35,7 @@ namespace Laba.Services.ServicesLab5
 
             watch.Stop();
 
-            return (int)watch.ElapsedTicks;
+            return watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)

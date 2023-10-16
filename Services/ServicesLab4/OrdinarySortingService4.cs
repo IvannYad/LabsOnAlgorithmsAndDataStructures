@@ -21,7 +21,7 @@ namespace Laba.Services.ServicesLab4
             }
         }
 
-        public int Sort(ref int[] input)
+        public double Sort(ref int[] input)
         {
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
@@ -32,7 +32,7 @@ namespace Laba.Services.ServicesLab4
 
             watch.Stop();
 
-            return (int)watch.ElapsedTicks;
+            return watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)

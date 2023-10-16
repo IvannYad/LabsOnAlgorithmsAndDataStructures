@@ -70,6 +70,7 @@ namespace Laba.Controllers
                     lab6VM.CountSortTimes[i] = _ordinarySortingService5.Sort(ref arrayToPass);
                 }
 
+                lab6VM.IsDataPopulated = true;
             }
             catch (ArgumentException ex)
             {

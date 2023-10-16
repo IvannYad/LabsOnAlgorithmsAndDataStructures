@@ -10,7 +10,7 @@ namespace Laba.Services.ServicesLab2
         private int _lower;
         private int _upper;
         private int _length;
-        public int Sort(ref int[] input)
+        public double Sort(ref int[] input)
         {
             int[] array;
             bool swapped;
@@ -42,7 +42,7 @@ namespace Laba.Services.ServicesLab2
                 step /= 2;
             }
             watch.Stop();
-            return (int)watch.ElapsedTicks;
+            return watch.ElapsedTicks;
         }
 
         public void Swap(ref int a, ref int b)
