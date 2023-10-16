@@ -1,6 +1,13 @@
 ﻿@model Lab6VM
 @{
     string visible = Model.IsDataPopulated ? "" : "hidden";
+    string[] chartNames = new string[0];
+    if (Model.IsDataPopulated)
+    {
+        chartNames = new string[Model.NumberOfElements.Length];
+    }
+
+    chartNames = chartNames.Select((c, i) => $"Chart{i + 1}").ToArray();
 }
 <div class="card-body p-4">
     <form method="post" class="row text-body-secondary">
@@ -29,9 +36,20 @@
         </div>
     </form>
     <div class="container row col-2 m-4">
-        <button onclick="return add(numberOfElements, selectionSort, shellSort, quickSort, mergeSort, countSort)" class="btn btn-dark text-warning col-12 m-2" @visible>Simulate graph</button>
+        <button onclick="return simulateGraph(numberOfElements, selectionSort, shellSort, quickSort, mergeSort, countSort)" class="btn btn-dark text-warning col-12 m-2" @visible>Simulate graph</button>
     </div>
-    
+    @if (Model.IsDataPopulated)
+    {
+        <div class="container row">
+            @for (int i = 0; i < Model.NumberOfElements.Length; i++)
+            {
+                <div class="container row col-2 m-4">
+                    <button onclick="return simulateDiagram(@i, selectionSort, shellSort, quickSort, mergeSort, countSort, numberOfElements, @chartNames[i])" class="btn btn-dark text-warning col-12 m-2" @visible>Simulate diagram for @Model.NumberOfElements[i]</button>
+                </div>
+            }
+        </div>
+
+    }
 </div>
 
 @if (Model.IsDataPopulated)
@@ -67,8 +85,20 @@
 
 
 <div class="container">
-    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
 </div>
+
+@if (Model.IsDataPopulated)
+{
+    @for (int i = 0; i < Model.NumberOfElements.Length; i++)
+    {
+        <div class="container">
+            <canvas id=@chartNames[i] style="width:100%;max-width:1000px"> </canvas>
+        </div>
+    }
+}
+
+
 
 
 
@@ -85,5 +115,6 @@
         var quickSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.QuickSortTimes)');
         var mergeSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.MergeSortTimes)');
         var countSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.CountSortTimes)');
+        var chartNamesJS = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(chartNames)');
     </script>
 }

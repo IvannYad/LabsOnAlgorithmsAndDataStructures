@@ -1,4 +1,4 @@
-﻿function add(times, selectionSort, shellSort, quickSort, mergeSort, countSort) {
+﻿function simulateGraph(times, selectionSort, shellSort, quickSort, mergeSort, countSort) {
     return new Chart("myChart", {
         type: "line",
         data: {
@@ -31,6 +31,26 @@
         },
         options: {
             legend: { display: false }
+        }
+    });
+}
+
+function simulateDiagram(index, selectionSort, shellSort, quickSort, mergeSort, countSort, numElements, chartName) {
+    return new Chart(chartName, {
+        type: "bar",
+        data: {
+            labels: ["SelectionSort", "ShellSort", "QuickSort", "MergeSort", "CountSort"],
+            datasets: [{
+                backgroundColor: ["red", "yellow", "green", "orange", "purple"],
+                data: [selectionSort[index], shellSort[index], quickSort[index], mergeSort[index], countSort[index]]
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Sorting time for " + numElements
+            }
         }
     });
 }
