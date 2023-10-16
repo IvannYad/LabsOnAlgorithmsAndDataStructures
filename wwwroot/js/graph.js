@@ -1,19 +1,31 @@
-﻿function add(arr) {
+﻿function add(times, selectionSort, shellSort, quickSort, mergeSort, countSort) {
     return new Chart("myChart", {
         type: "line",
         data: {
-            labels: arr,
+            labels: times,
             datasets: [{
-                data: arr,
+                data: selectionSort,
                 borderColor: "red",
                 fill: false
-            }, {
-                data: [1600, 1700, 1700, 1900, 2000, 2700, 4000, 5000, 6000, 7000],
+            },
+            {
+                data: shellSort,
+                borderColor: "yellow",
+                fill: false
+            },
+            {
+                data: quickSort,
                 borderColor: "green",
                 fill: false
-            }, {
-                data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
-                borderColor: "blue",
+            },
+            {
+                data: mergeSort,
+                borderColor: "orange",
+                fill: false
+            },
+            {
+                data: countSort,
+                borderColor: "purple",
                 fill: false
             }]
         },
