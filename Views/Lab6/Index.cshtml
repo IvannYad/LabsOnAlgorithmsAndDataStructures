@@ -1,0 +1,51 @@
+﻿@model int[]
+@{
+    string visible = "hidden";
+}
+<div class="card-body p-4">
+    <form method="post" class="row text-body-secondary">
+        <div class="container d-flex justify-content-center align-items-center col-12">
+            <h5>Lab6 Task</h5>
+        </div>
+        <div class="container row d-flex justify-content-around mt-4 col-12">
+            <div class="container col-3">
+                <label for="arrayInput" class="m-1">Enter number of elements </label>
+                <input type="text" class="form-control border-2" >
+                <span  class="ms-2 text-danger"></span>
+            </div>
+            <div class="container col-3">
+                <label for="arrayInput" class="m-1">Enter lower bound </label>
+                <input @* asp-for="" *@ class="form-control border-2" >
+                <span @* asp-validation-for="" *@ class="ms-2 text-danger"></span>
+            </div>
+            <div class="container col-3">
+                <label for="arrayInput" class="m-1">Enter upper bound </label>
+                <input @* asp-for="" *@ class="form-control border-2" >
+                <span @* asp-validation-for="" *@ class="ms-2 text-danger"></span>
+            </div>
+            <div class="container row mt-2 col-11">
+                <button type="submit" class="btn btn-dark text-warning col-3 mt-2">Submit</button>
+            </div>
+        </div>
+    </form>
+    <div class="container row col-2 m-4">
+        <button onclick="return add(arr)" class="btn btn-dark text-warning col-12 m-2">Simulate graph</button>
+    </div>
+    
+</div>
+
+<div class="container">
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+</div>
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="/js/graph.js"></script>
+    <script>
+        var arr = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model)');
+    </script>
+}
