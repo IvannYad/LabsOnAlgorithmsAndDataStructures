@@ -29,10 +29,12 @@ namespace Laba.Services.ServicesLab1
         public double Sort(ref int[] inputCollection)
         {
             int[] tempList;
-            
+            string path = "C:\\Users\\yad7d\\Desktop\\IT\\University\\Algorithms and data structures\\Laba6\\outSelection.txt";
+            using StreamWriter writer = new StreamWriter(path, true);
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
             tempList = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
+            writer.WriteLine($"Before sort for {_length} elements:  " + string.Join(' ', tempList));
             watch.Start();
             for (int i = 0; i < tempList.Length - 1; i++)
             {
@@ -40,7 +42,7 @@ namespace Laba.Services.ServicesLab1
                 Swap(ref tempList[i], ref tempList[minIndex]);
             }
             watch.Stop();
-            
+            writer.WriteLine($"After sort for {_length} elements:  " + string.Join(' ', tempList));
             return watch.ElapsedTicks;
         }
 

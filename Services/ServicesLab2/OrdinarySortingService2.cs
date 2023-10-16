@@ -18,6 +18,9 @@ namespace Laba.Services.ServicesLab2
             Random r = new Random();
             array = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
             int step = (array.Length) / 2;
+            string path = "C:\\Users\\yad7d\\Desktop\\IT\\University\\Algorithms and data structures\\Laba6\\outShell.txt";
+            using StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine($"Before sort for {_length} elements:  " + string.Join(' ', array));
             watch.Start();
             while (step > 0)
             {
@@ -42,6 +45,7 @@ namespace Laba.Services.ServicesLab2
                 step /= 2;
             }
             watch.Stop();
+            writer.WriteLine($"After sort for {_length} elements:  " + string.Join(' ', array));
             return watch.ElapsedTicks;
         }
 

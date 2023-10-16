@@ -19,7 +19,9 @@ namespace Laba.Services.ServicesLab5
             int[] indexesArray = new int[_upper - _lower];
             int[] result = new int[input.Length];
             result = result.Select(_ => -1).ToArray();
-
+            string path = "C:\\Users\\yad7d\\Desktop\\IT\\University\\Algorithms and data structures\\Laba6\\outCount.txt";
+            using StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine($"Before sort for {_length} elements:  " + string.Join(' ', input));
             watch.Start();
             input.ToList().ForEach(i => indexesArray[i]++);
             for (int i = 1; i < indexesArray.Length; i++)
@@ -34,7 +36,7 @@ namespace Laba.Services.ServicesLab5
             }
 
             watch.Stop();
-
+            writer.WriteLine($"After sort for {_length} elements:  " + string.Join(' ', result));
             return watch.ElapsedTicks;
         }
 

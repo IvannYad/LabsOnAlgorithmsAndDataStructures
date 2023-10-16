@@ -26,12 +26,15 @@ namespace Laba.Services.ServicesLab4
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
             input = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
+            string path = "C:\\Users\\yad7d\\Desktop\\IT\\University\\Algorithms and data structures\\Laba6\\outMerge.txt";
+            using StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine($"Before sort for {_length} elements:  " + string.Join(' ', input));
             watch.Start();
 
             RecursiveSort(input, 0, input.Length - 1);
 
             watch.Stop();
-
+            writer.WriteLine($"After sort for {_length} elements:  " + string.Join(' ', input));
             return watch.ElapsedTicks;
         }
 
