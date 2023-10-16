@@ -38,5 +38,32 @@ namespace Laba.Controllers
             return View(new Lab6VM());
         }
 
+        [HttpPost]
+        public IActionResult Index(Lab5VM lab5VM)
+        {
+            try
+            {
+                lab5VM.Array = _prepareCollectionService.GetCollectionFromString(lab5VM.ArrayString);
+
+                var tempArray = lab5VM.Array.ToArray();
+                lab5VM.TimeToSortInTicks = _customSortingService5.Sort(ref tempArray);
+                lab5VM.SortingAlgorithmStepsResult = _customSortingService5.Steps;
+                lab5VM.ComparesCount = _customSortingService5.ComparesCount;
+                lab5VM.ArrayWithIndexes = _customSortingService5.IndexesArray;
+                lab5VM.ArrayWithAddedIndexes = _customSortingService5.AddedIndexesArray;
+
+            }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("ArrayString", ex.Message);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("ArrayString", "Invalid array input");
+            }
+
+            return View(lab5VM);
+        }
+
     }
 }
