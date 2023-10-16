@@ -53,10 +53,21 @@ namespace Laba.Controllers
                 lab6VM.MergeSortTimes = new double[lab6VM.NumberOfElements.Length];
                 lab6VM.CountSortTimes = new double[lab6VM.NumberOfElements.Length];
                 var rand = new Random();
+                var arrayToPass = new int[0];
 
                 for (int i = 0; i < lab6VM.NumberOfElements.Length; i++)
                 {
-                    
+                    _ordinarySortingService1.PopulateBounds(lab6VM.LowerBound, lab6VM.UpperBound, lab6VM.NumberOfElements[i]);
+                    _ordinarySortingService2.PopulateBounds(lab6VM.LowerBound, lab6VM.UpperBound, lab6VM.NumberOfElements[i]);
+                    _ordinarySortingService3.PopulateBounds(lab6VM.LowerBound, lab6VM.UpperBound, lab6VM.NumberOfElements[i]);
+                    _ordinarySortingService4.PopulateBounds(lab6VM.LowerBound, lab6VM.UpperBound, lab6VM.NumberOfElements[i]);
+                    _ordinarySortingService5.PopulateBounds(lab6VM.LowerBound, lab6VM.UpperBound, lab6VM.NumberOfElements[i]);
+
+                    lab6VM.SelectionSortTimes[i] = _ordinarySortingService1.Sort(ref arrayToPass);
+                    lab6VM.ShellSortTimes[i] = _ordinarySortingService2.Sort(ref arrayToPass);
+                    lab6VM.QuickSortTimes[i] = _ordinarySortingService3.Sort(ref arrayToPass);
+                    lab6VM.MergeSortTimes[i] = _ordinarySortingService4.Sort(ref arrayToPass);
+                    lab6VM.CountSortTimes[i] = _ordinarySortingService5.Sort(ref arrayToPass);
                 }
 
             }

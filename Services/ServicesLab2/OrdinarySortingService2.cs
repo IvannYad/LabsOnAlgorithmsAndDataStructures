@@ -10,14 +10,14 @@ namespace Laba.Services.ServicesLab2
         private int _lower;
         private int _upper;
         private int _length;
-        public int Sort(ref IEnumerable<int> input)
+        public int Sort(ref int[] input)
         {
-            int[] array = input.ToArray();
-            int step = (array.Length) / 2;
+            int[] array;
             bool swapped;
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
             array = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
+            int step = (array.Length) / 2;
             watch.Start();
             while (step > 0)
             {

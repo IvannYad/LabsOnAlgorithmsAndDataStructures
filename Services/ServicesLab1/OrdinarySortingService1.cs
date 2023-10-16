@@ -26,11 +26,10 @@ namespace Laba.Services.ServicesLab1
             return kMin;
         }
 
-        public int Sort(ref IEnumerable<int> inputCollection)
+        public int Sort(ref int[] inputCollection)
         {
             int[] tempList;
-            tempList = inputCollection.ToArray();
-
+            
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
             tempList = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
