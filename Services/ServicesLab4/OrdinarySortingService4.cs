@@ -6,6 +6,10 @@ namespace Laba.Services.ServicesLab4
 {
     public class OrdinarySortingService4 : IOrdinarySortingService4
     {
+
+        private int _lower;
+        private int _upper;
+        private int _length;
         public void RecursiveSort(int[] array, int start, int end)
         {
             if (start < end)
@@ -20,6 +24,8 @@ namespace Laba.Services.ServicesLab4
         public int Sort(ref int[] input)
         {
             Stopwatch watch = new Stopwatch();
+            Random r = new Random();
+            input = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
             watch.Start();
 
             RecursiveSort(input, 0, input.Length - 1);
@@ -65,6 +71,13 @@ namespace Laba.Services.ServicesLab4
                     j++;
                 }
             }
+        }
+
+        public void PopulateBounds(int lower, int upper, int length)
+        {
+            _lower = lower;
+            _upper = upper;
+            _length = length;
         }
     }
 }

@@ -7,12 +7,17 @@ namespace Laba.Services.ServicesLab2
 {
     public class OrdinarySortingService2 : IOrdinarySortingService2
     {
+        private int _lower;
+        private int _upper;
+        private int _length;
         public int Sort(ref IEnumerable<int> input)
         {
             int[] array = input.ToArray();
             int step = (array.Length) / 2;
             bool swapped;
             Stopwatch watch = new Stopwatch();
+            Random r = new Random();
+            array = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
             watch.Start();
             while (step > 0)
             {
@@ -45,6 +50,13 @@ namespace Laba.Services.ServicesLab2
             int t = a;
             a = b;
             b = t;
+        }
+
+        public void PopulateBounds(int lower, int upper, int length)
+        {
+            _lower = lower;
+            _upper = upper;
+            _length = length;
         }
     }
 }

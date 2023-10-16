@@ -7,6 +7,9 @@ namespace Laba.Services.ServicesLab1
 {
     public class OrdinarySortingService1 : IOrdinarySortingService1
     {
+        private int _lower;
+        private int _upper;
+        private int _length;
         public int FindMinIndex(int[] array)
         {
             int min = array[0];
@@ -29,6 +32,8 @@ namespace Laba.Services.ServicesLab1
             tempList = inputCollection.ToArray();
 
             Stopwatch watch = new Stopwatch();
+            Random r = new Random();
+            tempList = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
             watch.Start();
             for (int i = 0; i < tempList.Length - 1; i++)
             {
@@ -45,6 +50,13 @@ namespace Laba.Services.ServicesLab1
             int t = a;
             a = b;
             b = t;
+        }
+
+        public void PopulateBounds(int lower, int upper, int length)
+        {
+            _lower = lower;
+            _upper = upper;
+            _length = length;
         }
     }
 }

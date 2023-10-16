@@ -8,15 +8,18 @@ namespace Laba.Services.ServicesLab5
 {
     public class OrdinarySortingService5 : IOrdinarySortingService5
     {
-        
+        private int _lower;
+        private int _upper;
+        private int _length;
         public int Sort(ref int[] input)
         {
             Stopwatch watch = new Stopwatch();
+            Random r = new Random();
+            input = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
             watch.Start();
-
-            int[] indexesArray = new int[11];
+            int[] indexesArray = new int[_upper - _lower];
             input.ToList().ForEach(i => indexesArray[i]++);
-            for (int i = 1; i < indexesArray.Length; i++)
+            for (int i = _lower; i < indexesArray.Length; i++)
             {
                 indexesArray[i] = indexesArray[i] + indexesArray[i - 1];
             }
@@ -42,6 +45,12 @@ namespace Laba.Services.ServicesLab5
             b = t;
         }
 
+        public void PopulateBounds(int lower, int upper, int length)
+        {
+            _lower = lower;
+            _upper = upper;
+            _length = length;
+        }
         
     }
 }

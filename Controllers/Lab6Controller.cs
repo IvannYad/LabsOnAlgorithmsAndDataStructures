@@ -8,6 +8,7 @@ using Laba.Services.Interfaces.InterfacesLab5;
 using Laba.Services.ServicesLab5;
 using Laba.Services.Interfaces.InterfacesLab1;
 using Laba.Services.Interfaces.InterfacesLab2;
+using System.Runtime.InteropServices;
 
 namespace Laba.Controllers
 {
@@ -18,6 +19,7 @@ namespace Laba.Controllers
         private readonly IOrdinarySortingService3 _ordinarySortingService3;
         private readonly IOrdinarySortingService4 _ordinarySortingService4;
         private readonly IOrdinarySortingService5 _ordinarySortingService5;
+        private readonly IPrepareCollectionService<string, int[]> _prepareCollectionService;
 
         public Lab6Controller(IOrdinarySortingService1 ordinarySortingService1,
             IOrdinarySortingService2 ordinarySortingService2, 
@@ -30,6 +32,7 @@ namespace Laba.Controllers
             _ordinarySortingService3 = ordinarySortingService3;
             _ordinarySortingService4 = ordinarySortingService4;
             _ordinarySortingService5 = ordinarySortingService5;
+            _prepareCollectionService = new PrepareCollectionServiceLab6();
         }
 
         [HttpGet]
@@ -39,31 +42,34 @@ namespace Laba.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Lab5VM lab5VM)
+        public IActionResult Index(Lab6VM lab6VM)
         {
             try
             {
-                lab5VM.Array = _prepareCollectionService.GetCollectionFromString(lab5VM.ArrayString);
+                lab6VM.NumberOfElements = _prepareCollectionService.GetCollectionFromString(lab6VM.NumberOfElementsString);
+                lab6VM.SelectionSortTimes = new double[lab6VM.NumberOfElements.Length];
+                lab6VM.ShellSortTimes = new double[lab6VM.NumberOfElements.Length];
+                lab6VM.QuickSortTimes = new double[lab6VM.NumberOfElements.Length];
+                lab6VM.MergeSortTimes = new double[lab6VM.NumberOfElements.Length];
+                lab6VM.CountSortTimes = new double[lab6VM.NumberOfElements.Length];
+                var rand = new Random();
 
-                var tempArray = lab5VM.Array.ToArray();
-                lab5VM.TimeToSortInTicks = _customSortingService5.Sort(ref tempArray);
-                lab5VM.SortingAlgorithmStepsResult = _customSortingService5.Steps;
-                lab5VM.ComparesCount = _customSortingService5.ComparesCount;
-                lab5VM.ArrayWithIndexes = _customSortingService5.IndexesArray;
-                lab5VM.ArrayWithAddedIndexes = _customSortingService5.AddedIndexesArray;
+                for (int i = 0; i < lab6VM.NumberOfElements.Length; i++)
+                {
+                    
+                }
 
             }
             catch (ArgumentException ex)
             {
-                ModelState.AddModelError("ArrayString", ex.Message);
+                ModelState.AddModelError("NumberOfElementsString", ex.Message);
             }
             catch (Exception)
             {
-                ModelState.AddModelError("ArrayString", "Invalid array input");
+                ModelState.AddModelError("NumberOfElementsString", "Invalid array input");
             }
 
-            return View(lab5VM);
+            return View(lab6VM);
         }
-
     }
 }

@@ -6,5 +6,6 @@ namespace Laba.Services.Interfaces.InterfacesLab4
     {
         void Merge(int[] array, int start, int end, int mid);
         void RecursiveSort(int[] array, int start, int end);
+        public void PopulateBounds(int lower, int upper, int length);
     }
 }
