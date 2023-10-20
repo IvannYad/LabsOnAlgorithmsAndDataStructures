@@ -5,7 +5,7 @@ namespace Tests
         [Fact]
         public void Test1()
         {
-            Console.WriteLine("Hello");
+            
         }
     }
 }
