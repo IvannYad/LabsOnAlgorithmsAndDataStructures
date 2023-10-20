@@ -1,3 +1,5 @@
+using Laba.DataStructures;
+using Laba.DataStructures.Interfaces;
 using Laba.Services.Interfaces;
 using Laba.Services.Interfaces.InterfacesLab1;
 using Laba.Services.Interfaces.InterfacesLab2;
@@ -26,6 +28,8 @@ builder.Services.AddScoped<IOrdinarySortingService5, OrdinarySortingService5>();
 builder.Services.AddScoped<ICustomSortingService5, CustomSortingService5>();
 builder.Services.AddScoped<IPrepareCollectionService<string, string[]>, PrepareCollectionServiceLab1>();
 builder.Services.AddScoped<IPrepareCollectionService<string[], double[][]>, PrepareCollectionServiceLab2>();
+
+builder.Services.AddSingleton<PriorityQueue>();
 
 
 var app = builder.Build();
