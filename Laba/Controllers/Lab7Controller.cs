@@ -41,5 +41,12 @@ namespace Laba.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult Peek()
+        {
+            LabVM.PeekResult = LabVM.Queue.Peek();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
