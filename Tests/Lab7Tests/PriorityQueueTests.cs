@@ -174,5 +174,71 @@ namespace Tests.Lab7Tests
             //Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Dequeue_EmptyQueue_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+
+            // Act
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => priorityQueue.Dequeue());
+        }
+
+        [Theory]
+        [InlineData("1,3", 3)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", 3)]
+        [InlineData("5,4/4,3/3,2/2,1", 1)]
+        [InlineData("5,1.1/5,2.2/5,3.3/5,4.4", 1.1)]
+        public void Dequeue_NonEmptyQueue_ReturnsFirstElement(string elemsString, double expected)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            double actual;
+
+            // Act
+            foreach (var elem in elems)
+            {
+                priorityQueue.Enqueue(elem.Item1, elem.Item2);
+            }
+
+            actual = priorityQueue.Dequeue();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("1,3")]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6")]
+        public void Dequeue_NonEmptyQueue_CountIsDecremented(string elemsString)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            double countBefore;
+
+            // Act
+            foreach (var elem in elems)
+            {
+                priorityQueue.Enqueue(elem.Item1, elem.Item2);
+            }
+            countBefore = priorityQueue.Count;
+            priorityQueue.Dequeue();
+
+            //Assert
+            Assert.Equal(countBefore, priorityQueue.Count + 1);
+        }
     }
 }
