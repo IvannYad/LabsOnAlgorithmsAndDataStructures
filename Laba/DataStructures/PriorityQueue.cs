@@ -138,7 +138,7 @@ namespace Laba.DataStructures
         {
             int index = -1;
             if (IsEmpty)
-                return index;
+                throw new InvalidOperationException();
 
             foreach (var node in _linkedList)
             {

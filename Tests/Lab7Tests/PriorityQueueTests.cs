@@ -279,5 +279,44 @@ namespace Tests.Lab7Tests
             //Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void MaxElement_EmptyQueue_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+
+            // Act
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => priorityQueue.MaxElement());
+        }
+
+        [Theory]
+        [InlineData("1,3", 3)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", 6.44)]
+        [InlineData("5,1.1/5,2.2/5,3.3/5,4.4", 4.4)]
+        public void MaxElement_NonEmptyQueue_ReturnsMaxElement(string elemsString, double expected)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            double actual;
+
+            // Act
+            foreach (var elem in elems)
+            {
+                priorityQueue.Enqueue(elem.Item1, elem.Item2);
+            }
+
+            actual = priorityQueue.MaxElement();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
