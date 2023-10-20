@@ -39,5 +39,34 @@ namespace Tests.Lab7Tests
             //Assert
             Assert.Equal(expectedCount, priorityQueue.Count);
         }
+
+        [Fact]
+        public void IsEmpty_EmptyQueue_ReturnTrue()
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+
+            // Act
+
+            //Assert
+            Assert.True(priorityQueue.IsEmpty);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public void IsEmpty_NotEmptyQueue_ReturnFalse(int count)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            
+            // Act
+            for (int i = 0; i < count; i++)
+            {
+                priorityQueue.Enqueue(3, 1.3);
+            }
+
+            //Assert
+            Assert.False(priorityQueue.IsEmpty);
+        }
     }
 }
