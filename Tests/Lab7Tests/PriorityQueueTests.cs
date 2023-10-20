@@ -86,7 +86,7 @@ namespace Tests.Lab7Tests
         [Theory]
         [InlineData(1)]
         [InlineData(12)]
-        public void Enqueue_AddElements_AddCorrectNumberOfElements(int count)
+        public void Enqueue_AddValidElements_AddCorrectNumberOfElements(int count)
         {
             // Arrange
             PriorityQueue priorityQueue = new PriorityQueue();
@@ -106,7 +106,7 @@ namespace Tests.Lab7Tests
         [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", "3,5,4,6,1.3,6.44")]
         [InlineData("5,4/4,3/3,2/2,1", "1,2,3,4")]
         [InlineData("5,1.1/5,2.2/5,3.3/5,4.4", "1.1,2.2,3.3,4.4")]
-        public void Enqueue_AddElements_AddElementsInCorrectOrder(string elemsString, string expected)
+        public void Enqueue_AddValidElements_AddElementsInCorrectOrder(string elemsString, string expected)
         {
             // Arrange
             PriorityQueue priorityQueue = new PriorityQueue();
@@ -130,6 +130,46 @@ namespace Tests.Lab7Tests
             }
 
             actual = string.Join(',', elementsFromPriorityQueue);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Peek_EmptyQueue_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+
+            // Act
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => priorityQueue.Peek());
+        }
+
+        [Theory]
+        [InlineData("1,3", 3)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", 3)]
+        [InlineData("5,4/4,3/3,2/2,1", 1)]
+        [InlineData("5,1.1/5,2.2/5,3.3/5,4.4", 1.1)]
+        public void Peek_NonEmptyQueue_ReturnsFirstElement(string elemsString, double expected)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            double actual;
+
+            // Act
+            foreach (var elem in elems)
+            {
+                priorityQueue.Enqueue(elem.Item1, elem.Item2);
+            }
+
+            actual = priorityQueue.Peek();
 
             //Assert
             Assert.Equal(expected, actual);
