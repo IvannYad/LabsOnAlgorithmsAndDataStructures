@@ -161,6 +161,7 @@ namespace Laba.DataStructures
             {
                 if (currentIndex == index)
                     toReturn = node.Info.Value;
+                currentIndex++;
             }
 
             return toReturn;

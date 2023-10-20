@@ -382,5 +382,59 @@ namespace Tests.Lab7Tests
             //Assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData("1,3", -1)]
+        [InlineData("1,3", 1)]
+        [InlineData("1,3", 3)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", 123)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", -22)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", -1)]
+        public void ReturnByIndex_InvalidIndex_ThrowsIndexOutOfRangeException(string elemsString, int index)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            
+            // Act
+            foreach (var elem in elems)
+            {
+                priorityQueue.Enqueue(elem.Item1, elem.Item2);
+            }
+
+            //Assert
+            Assert.Throws<IndexOutOfRangeException>(() => priorityQueue.ReturnByIndex(index));
+        }
+
+        [Theory]
+        [InlineData("1,3", 0, 3)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", 0, 3)]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", 4, 1.3)]
+        public void ReturnByIndex_ValidIndex_ReturnsValueAtIndex(string elemsString, int index, double expected)
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            double actual;
+
+            // Act
+            foreach (var elem in elems)
+            {
+                priorityQueue.Enqueue(elem.Item1, elem.Item2);
+            }
+
+            actual = priorityQueue.ReturnByIndex(index);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
