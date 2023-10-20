@@ -16,9 +16,9 @@ namespace Laba.Controllers
     public class Lab7Controller : Controller
     {
         public Lab7VM LabVM { get; set; }
-        public Lab7Controller(PriorityQueue priorityQueue)
+        public Lab7Controller(Lab7VM lab7VM)
         {
-            LabVM = new Lab7VM() { Queue = priorityQueue};
+            LabVM = lab7VM;
         }
 
         [HttpGet]
@@ -33,6 +33,13 @@ namespace Laba.Controllers
             LabVM.Queue.Enqueue((int)lab7VM.PriorityToEnqueue, (double)lab7VM.ValueToEnqueue);
             return RedirectToAction(nameof(Index));
         }
-        
+
+        [HttpGet]
+        public IActionResult Dequeue()
+        {
+            LabVM.DequeueResult = LabVM.Queue.Dequeue();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
