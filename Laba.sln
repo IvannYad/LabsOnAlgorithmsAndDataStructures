@@ -5,7 +5,10 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laba", "Laba\Laba.csproj", "{C03F5C7B-5E9E-46E6-88BA-D3E223207000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2B6C9943-66EF-4708-A2E9-7CF8EF409954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{2B6C9943-66EF-4708-A2E9-7CF8EF409954}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C03F5C7B-5E9E-46E6-88BA-D3E223207000} = {C03F5C7B-5E9E-46E6-88BA-D3E223207000}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

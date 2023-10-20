@@ -42,7 +42,7 @@ namespace Laba.Controllers
                 laba2VM.ComparesCount = _sortingServiceLab2.ComparesCount;
                 laba2VM.SwipesCount = _sortingServiceLab2.SwipesCount;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("MatrixString", "Invalid matrix input");
             }

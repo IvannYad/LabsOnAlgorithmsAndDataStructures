@@ -13,7 +13,6 @@ namespace Laba.Services.ServicesLab2
         public double Sort(ref int[] input)
         {
             int[] array;
-            bool swapped;
             Stopwatch watch = new Stopwatch();
             Random r = new Random();
             array = Enumerable.Range(0, _length).Select(i => r.Next(_lower, _upper)).ToArray();
@@ -26,13 +25,11 @@ namespace Laba.Services.ServicesLab2
             {
                 for (int i = 0; i + step < array.Length; i++)
                 {
-                    swapped = false;
                     int j = i + step;
                     while (j - step >= 0)
                     {
                         if (array[j] < array[j - step])
                         {
-                            swapped = true;
                             Swap(ref array[j], ref array[j - step]);
                             j -= step;
                             continue;

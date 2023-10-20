@@ -12,7 +12,7 @@ namespace Laba.DataStructures
 
         public bool IsEmpty { get; private set; }
 
-        public Node<(int Priority, double Value)>? Start => _linkedList.Start;
+        public Node<(int Priority, double Value)> Start => _linkedList.Start;
 
         public PriorityQueue()
         {
