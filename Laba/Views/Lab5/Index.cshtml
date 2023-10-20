@@ -1,0 +1,124 @@
+﻿@model Lab5VM
+
+
+<div class="card-body p-4">
+    <form method="post" class="row text-body-secondary">
+        <div class="container d-flex justify-content-center align-items-center">
+            <h5>Lab5 Task</h5>
+        </div>
+        <div class="container row">
+            <div class="container col-12">
+                <label for="arrayInput" class="m-1">Enter Array in following way: </label>
+                <input asp-for="ArrayString" class="form-control border-2" placeholder="element1 element2 element3 ... elementN">
+                <span asp-validation-for="ArrayString" class="ms-2 text-danger"></span>
+            </div>
+        </div>
+        <div class="container row mt-2">
+            <div class="container col-4 p-3 m-0">
+                <button type="submit" class="btn btn-dark text-warning">Submit</button>
+            </div>
+        </div>
+    </form>
+    @if (Model.SortingAlgorithmStepsResult is not null && Model.SortingAlgorithmStepsResult.Count is > 0)
+    {
+        <div class="container row mt-3">
+            <div class="container col-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-active table-dark">
+                            <td scope="col" class="text-warning">Array</td>
+                            @for (int i = 0; i < Model.ArrayWithIndexes.Length; i++)
+                            {
+                                <td scope="col" class="text-warning">@string.Format($"[{Model.ArrayWithIndexes[i].Item1}]")</td>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-light">
+                            <td>Indexes array</td>
+                            @foreach (var item in Model.ArrayWithIndexes.Select(p => p.Item2))
+                            {
+                                <td>@string.Format($"{item}")</td>
+                            }
+                        </tr>
+                        <tr class="table-light">
+                            <td>Added indexes array</td>
+                            @foreach (var item in Model.ArrayWithAddedIndexes.Select(p => p.Item2))
+                            {
+                                <td>@string.Format($"{item}")</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table class="table table-hover col-12">
+                <thead>
+                    <tr class="table-active table-dark">
+                        <td scope="col" class="text-warning">Iteration</td>
+                        @for (int i = 0; i < Model.Array.Length; i++)
+                        {
+                            <td scope="col" class="text-warning">@string.Format($"[{i}]")</td>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-light">
+                        <td>Before sorting</td>
+                        @foreach (var item in Model.Array.Select(p => p * 1.0 / 100))
+                        {
+                            <td>@string.Format($"{item}")</td>
+                        }
+                    </tr>
+                    @foreach (var item in Model.SortingAlgorithmStepsResult)
+                    {
+                        <tr class="table-light p-1">
+                            <td class="col-2">
+                                @(Array.IndexOf(Model.SortingAlgorithmStepsResult.ToArray(), item) + 1)
+                            </td>
+                            @for (int i = 0; i < item.Array.Length; i++)
+                            {
+                                if (item.SortedIndexes.Contains(i))
+                                {
+                                    if (i == item.CurrentIndex)
+                                    {
+                                        <td style="border: 3px solid red; background-color: orange">@string.Format($"{item.Array[i]}")</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="background-color: orange">@string.Format($"{item.Array[i]}")</td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td>@string.Format($"{item.Array[i]}")</td>
+                                }
+                            }
+                        </tr>
+                    }
+                    <tr class="table-light">
+                        <td>Result</td>
+                        @foreach (var item in Model.SortingAlgorithmStepsResult.Last().Array)
+                        {
+                            <td class="bg-success">@string.Format($"{item}")</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container row mt-3">
+            Time elapsed : @Model.TimeToSortInTicks ticks
+        </div>
+        <div class="container row mt-3">
+            Number of compare oeprations : @Model.ComparesCount
+        </div>
+    }
+
+</div>
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

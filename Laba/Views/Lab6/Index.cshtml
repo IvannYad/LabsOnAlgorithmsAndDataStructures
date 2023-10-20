@@ -1,0 +1,120 @@
+﻿@model Lab6VM
+@{
+    string visible = Model.IsDataPopulated ? "" : "hidden";
+    string[] chartNames = new string[0];
+    if (Model.IsDataPopulated)
+    {
+        chartNames = new string[Model.NumberOfElements.Length];
+    }
+
+    chartNames = chartNames.Select((c, i) => $"Chart{i + 1}").ToArray();
+}
+<div class="card-body p-4">
+    <form method="post" class="row text-body-secondary">
+        <div class="container d-flex justify-content-center align-items-center col-12">
+            <h5>Lab6 Task</h5>
+        </div>
+        <div class="container row d-flex justify-content-around mt-4 col-12">
+            <div class="container col-3">
+                <label for="arrayInput" class="m-1">Enter number of elements </label>
+                <input asp-for="NumberOfElementsString" class="form-control border-2" placeholder="num1 num2 num3 ... numN" id="arrayInput">
+                <span asp-validation-for="NumberOfElementsString" class="ms-2 text-danger"></span>
+            </div>
+            <div class="container col-3">
+                <label for="lowerBound" class="m-1">Enter lower bound </label>
+                <input asp-for="LowerBound" class="form-control border-2" id="lowerBound">
+                <span asp-validation-for="LowerBound" class="ms-2 text-danger"></span>
+            </div>
+            <div class="container col-3">
+                <label for="upperInput" class="m-1">Enter upper bound </label>
+                <input asp-for="UpperBound" class="form-control border-2" id="upperInput">
+                <span asp-validation-for="UpperBound" class="ms-2 text-danger"></span>
+            </div>
+            <div class="container row mt-2 col-11">
+                <button type="submit" class="btn btn-dark text-warning col-3 mt-2">Submit</button>
+            </div>
+        </div>
+    </form>
+    <div class="container row col-2 m-4">
+        <button onclick="return simulateGraph(numberOfElements, selectionSort, shellSort, quickSort, mergeSort, countSort)" class="btn btn-dark text-warning col-12 m-2" @visible>Simulate graph</button>
+    </div>
+    @if (Model.IsDataPopulated)
+    {
+        <div class="container row">
+            @for (int i = 0; i < Model.NumberOfElements.Length; i++)
+            {
+                <div class="container row col-2 m-4">
+                    <button onclick="return simulateDiagram(@i, selectionSort, shellSort, quickSort, mergeSort, countSort, numberOfElements, @chartNames[i])" class="btn btn-dark text-warning col-12 m-2" @visible>Simulate diagram for @Model.NumberOfElements[i]</button>
+                </div>
+            }
+        </div>
+
+    }
+</div>
+
+@if (Model.IsDataPopulated)
+{
+    <div class="container row mb-3">
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-active table-dark">
+                    <td scope="col" class="text-warning">Number of elements</td>
+                    <td scope="col" class="text-warning">SelectionSort time</td>
+                    <td scope="col" class="text-warning">ShellSort time</td>
+                    <td scope="col" class="text-warning">QuickSort time</td>
+                    <td scope="col" class="text-warning">MergeSort time</td>
+                    <td scope="col" class="text-warning">CountSort time</td>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.NumberOfElements.Length; i++)
+                {
+                    <tr class="table-light">
+                        <td>@Model.NumberOfElements[i]</td>
+                        <td>@Model.SelectionSortTimes[i]</td>
+                        <td>@Model.ShellSortTimes[i]</td>
+                        <td>@Model.QuickSortTimes[i]</td>
+                        <td>@Model.MergeSortTimes[i]</td>
+                        <td>@Model.CountSortTimes[i]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+<div class="container">
+    <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+</div>
+
+@if (Model.IsDataPopulated)
+{
+    @for (int i = 0; i < Model.NumberOfElements.Length; i++)
+    {
+        <div class="container">
+            <canvas id=@chartNames[i] style="width:100%;max-width:1000px"> </canvas>
+        </div>
+    }
+}
+
+
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="/js/graph.js"></script>
+    <script>
+        var numberOfElements = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.NumberOfElements)');
+        var selectionSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.SelectionSortTimes)');
+        var shellSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ShellSortTimes)');
+        var quickSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.QuickSortTimes)');
+        var mergeSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.MergeSortTimes)');
+        var countSort = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.CountSortTimes)');
+        var chartNamesJS = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(chartNames)');
+    </script>
+}
