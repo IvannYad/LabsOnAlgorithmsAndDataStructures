@@ -48,5 +48,19 @@ namespace Laba.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult FindMin()
+        {
+            LabVM.MinElement = LabVM.Queue.MinElement();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult FindMax()
+        {
+            LabVM.MaxElement = LabVM.Queue.MaxElement();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
