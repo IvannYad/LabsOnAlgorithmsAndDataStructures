@@ -1,5 +1,6 @@
 ﻿using Laba.DataStructures.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 
@@ -58,11 +59,24 @@ namespace Laba.DataStructures
 
         public void Enqueue(int priority, double value)
         {
+            if (priority < 0)
+            {
+                throw new ArgumentException("Priority cannot be less than zero");
+            }
 
             Node<(int Priority, double Value)> current = _linkedList.Start;
             Node<(int Priority, double Value)> toAdd = new Node<(int Priority, double Value)>((priority, value));
             if (current is null)
             {
+                _linkedList.Start = toAdd;
+                Count++;
+                IsEmpty = false;
+                return;
+            }
+
+            if (priority < current.Info.Priority)
+            {
+                toAdd.Next = current;
                 _linkedList.Start = toAdd;
                 Count++;
                 IsEmpty = false;
@@ -77,12 +91,12 @@ namespace Laba.DataStructures
                 return;
             }
 
-            while (current.Next is not null && current.Next.Info.Priority < priority)
+            while (current.Next is not null && current.Next.Info.Priority <= priority)
             {
                 current = current.Next;
             }
 
-            _linkedList.AddAfter(_linkedList.Start, toAdd);
+            _linkedList.AddAfter(current, toAdd);
             Count++;
             IsEmpty = false;
             return;
@@ -150,6 +164,19 @@ namespace Laba.DataStructures
             }
 
             return toReturn;
+        }
+
+        public IEnumerator<(int Priority, double Value)> GetEnumerator()
+        {
+            foreach (var node in _linkedList)
+            {
+                yield return node.Info;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
 
         static IPriorityQueue<(int Priority, double Value)>
