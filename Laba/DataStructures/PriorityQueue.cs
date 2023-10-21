@@ -180,10 +180,10 @@ namespace Laba.DataStructures
             return this.GetEnumerator();
         }
 
-        static IPriorityQueue<(int Priority, double Value)>
-            IPriorityQueue<(int Priority, double Value)>.operator +(
-            IPriorityQueue<(int Priority, double Value)> one,
-            IPriorityQueue<(int Priority, double Value)> two)
+        public static PriorityQueue
+            operator +(
+            PriorityQueue one,
+            PriorityQueue two)
         {
             if (one is null || two is null)
             {
@@ -192,7 +192,7 @@ namespace Laba.DataStructures
 
             var currentOne = one.Start;
             var currentTwo = two.Start;
-            IPriorityQueue<(int Priority, double Value)> result = new PriorityQueue();
+            PriorityQueue result = new PriorityQueue();
 
             while (currentOne is not null || currentTwo is not null)
             {

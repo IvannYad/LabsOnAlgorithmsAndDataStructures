@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Laba.DataStructures;
+using Laba.DataStructures.Interfaces;
 
 namespace Tests.Lab7Tests
 {
@@ -58,7 +60,7 @@ namespace Tests.Lab7Tests
         {
             // Arrange
             PriorityQueue priorityQueue = new PriorityQueue();
-            
+
             // Act
             for (int i = 0; i < count; i++)
             {
@@ -76,9 +78,9 @@ namespace Tests.Lab7Tests
         {
             // Arrange
             PriorityQueue priorityQueue = new PriorityQueue();
-            
+
             // Act
-            
+
             //Assert
             Assert.Throws<ArgumentException>(() => priorityQueue.Enqueue(priority, 7));
         }
@@ -112,7 +114,7 @@ namespace Tests.Lab7Tests
             PriorityQueue priorityQueue = new PriorityQueue();
             IEnumerable<(int, double)> elems = elemsString.Split('/', StringSplitOptions.RemoveEmptyEntries)
                 .Select(
-                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]), 
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
                     double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
                 );
             string actual;
@@ -399,7 +401,7 @@ namespace Tests.Lab7Tests
                     s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
                     double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
                 );
-            
+
             // Act
             foreach (var elem in elems)
             {
@@ -432,6 +434,61 @@ namespace Tests.Lab7Tests
             }
 
             actual = priorityQueue.ReturnByIndex(index);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Plus_NullParameter_ThrowsArgumentNullException()
+        {
+            // Arrange
+            PriorityQueue priorityQueue = new PriorityQueue();
+            priorityQueue.Enqueue(1, 3);
+            priorityQueue.Enqueue(4, 3.2);
+            priorityQueue.Enqueue(3, 12.5);
+
+            // Act
+
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => priorityQueue + null);
+            Assert.Throws<ArgumentNullException>(() => null + priorityQueue);
+        }
+
+        [Theory]
+        [InlineData("1,3", "2,2", "3,2")]
+        [InlineData("1,3/5,1.3/3,5/12,6.44/4,4/4,6", "7,1.01/10,2/12,4", "3,5,4,6,1.3,1.01,2,6.44,4")]
+        public void Plus_ValidParameters_ReturnCorrectQueue(string one, string two, string expected)
+        {
+            // Arrange
+            PriorityQueue priorityQueueOne = new PriorityQueue();
+            PriorityQueue priorityQueueTwo = new PriorityQueue();
+            PriorityQueue priorityQueueAdd = new PriorityQueue();
+            IEnumerable<(int, double)> elemsOne = one.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            IEnumerable<(int, double)> elemsTwo = two.Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Select(
+                    s => (int.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[0]),
+                    double.Parse(s.Split(',', StringSplitOptions.RemoveEmptyEntries)[1]))
+                );
+            string actual;
+
+            // Act
+            foreach (var elem in elemsOne)
+            {
+                priorityQueueOne.Enqueue(elem.Item1, elem.Item2);
+            }
+            
+            foreach (var elem in elemsTwo)
+            {
+                priorityQueueTwo.Enqueue(elem.Item1, elem.Item2);
+            }
+
+            priorityQueueAdd = priorityQueueOne + priorityQueueTwo;
+            actual = string.Join(',', priorityQueueAdd.Select(p => p.Value));
 
             //Assert
             Assert.Equal(expected, actual);

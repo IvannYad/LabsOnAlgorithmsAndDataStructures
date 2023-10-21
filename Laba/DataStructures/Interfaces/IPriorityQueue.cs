@@ -13,6 +13,5 @@
         double Peek();
         int IndexOf(double value);
         double ReturnByIndex(int index);
-        static abstract IPriorityQueue<T> operator+(IPriorityQueue<T> one, IPriorityQueue<T> two); 
     }
 }
