@@ -138,7 +138,7 @@ namespace Laba.DataStructures
         {
             int index = -1;
             if (IsEmpty)
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Queue is empty");
 
             foreach (var node in _linkedList)
             {

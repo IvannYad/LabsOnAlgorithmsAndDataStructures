@@ -37,42 +37,114 @@ namespace Laba.Controllers
         [HttpGet]
         public IActionResult Dequeue()
         {
-            LabVM.DequeueResult = LabVM.Queue.Dequeue();
+            try
+            {
+                LabVM.DequeueResult = LabVM.Queue.Dequeue();
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(nameof(LabVM.DequeueResult), ex.Message);
+            }
+            catch
+            {
+                ModelState.AddModelError(nameof(LabVM.DequeueResult), "Error");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Peek()
         {
-            LabVM.PeekResult = LabVM.Queue.Peek();
+            try
+            {
+                LabVM.PeekResult = LabVM.Queue.Peek();
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(nameof(LabVM.PeekResult), ex.Message);
+            }
+            catch
+            {
+                ModelState.AddModelError(nameof(LabVM.PeekResult), "Error");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult FindMin()
         {
-            LabVM.MinElement = LabVM.Queue.MinElement();
+            try
+            {
+                LabVM.MinElement = LabVM.Queue.MinElement();
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(nameof(LabVM.MinElement), ex.Message);
+            }
+            catch
+            {
+                ModelState.AddModelError(nameof(LabVM.MinElement), "Error");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult FindMax()
         {
-            LabVM.MaxElement = LabVM.Queue.MaxElement();
+            try
+            {
+                LabVM.MaxElement = LabVM.Queue.MaxElement();
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(nameof(LabVM.MaxElement), ex.Message);
+            }
+            catch
+            {
+                ModelState.AddModelError(nameof(LabVM.MaxElement), "Error");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         public IActionResult FindIndex(Lab7VM lab7VM)
         {
-            LabVM.Index = LabVM.Queue.IndexOf((double)lab7VM.ElementInput);
+            try
+            {
+                LabVM.Index = LabVM.Queue.IndexOf((double)lab7VM.ElementInput);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(nameof(LabVM.ElementInput), ex.Message);
+            }
+            catch
+            {
+                ModelState.AddModelError(nameof(LabVM.ElementInput), "Invalid input");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         public IActionResult FindElement(Lab7VM lab7VM)
         {
-            LabVM.ElementByIndex = LabVM.Queue.ReturnByIndex((int)lab7VM.IndexInput);
+            try
+            {
+                LabVM.ElementByIndex = LabVM.Queue.ReturnByIndex((int)lab7VM.IndexInput);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                ModelState.AddModelError(nameof(LabVM.IndexInput), ex.Message);
+            }
+            catch
+            {
+                ModelState.AddModelError(nameof(LabVM.IndexInput), "Invalid input");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 

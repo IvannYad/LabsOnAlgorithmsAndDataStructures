@@ -112,6 +112,7 @@
                         <div class="container rounded bg-body-secondary text-warning d-flex"
                              style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
                             <h5 class="m-1">@Model.MinElement</h5>
+                            <span asp-validation-for="MinElement" class="text-danger"></span>
                         </div>
                     }
 
@@ -130,6 +131,7 @@
                         <div class="container rounded bg-body-secondary text-warning d-flex"
                              style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
                             <h5 class="m-1">@Model.MaxElement</h5>
+                            <span asp-validation-for="MaxElement" class="text-danger"></span>
                         </div>
                     }
                 </div>
@@ -141,16 +143,16 @@
 
         <div class="col-5 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center mt-3" style="border: solid 2px grey">
             <form asp-action="FindIndex" method="post" class="row d-flex justify-content-between" style="width:fit-content">
-                <div class="container col-8 row">
-                    <div class="container col-6">
+                <div class="container col-9 row">
+                    <div class="container col-5">
                         <input asp-for="ElementInput" class="form-control border-2" placeholder="Value" required />
                         <span asp-validation-for="ElementInput" class="text-danger"></span>
                     </div>
-                    <div class="container col-6 d-flex align-items-end">
+                    <div class="container col-7 d-flex align-items-end">
                         <button type="submit" class="btn btn-dark text-warning">Find Index</button>
                     </div>
                 </div>
-                <div class="container col-3 d-flex align-items-center">
+                <div class="container col-3 d-flex align-items-center m-0">
                     @if (Model.Index is not null)
                     {
                         <div class="container rounded bg-body-secondary text-warning d-flex"
