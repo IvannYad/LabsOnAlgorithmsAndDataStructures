@@ -62,5 +62,19 @@ namespace Laba.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult FindIndex(Lab7VM lab7VM)
+        {
+            LabVM.Index = LabVM.Queue.IndexOf((double)lab7VM.ElementInput);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult FindElement(Lab7VM lab7VM)
+        {
+            LabVM.ElementByIndex = LabVM.Queue.ReturnByIndex((int)lab7VM.IndexInput);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

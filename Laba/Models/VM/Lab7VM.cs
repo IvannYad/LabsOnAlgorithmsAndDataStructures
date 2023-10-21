@@ -17,8 +17,11 @@ namespace Laba.Models.VM
         public double? DequeueResult { get; set; }
         public double? PeekResult { get; set; }
         [Display(Name = "Value")]
+        
         public double? ElementByIndex { get; set; }
+        public int? IndexInput { get; set; }
+        
         public int? Index { get; set; }
-
+        public double? ElementInput { get; set; }
     }
 }
