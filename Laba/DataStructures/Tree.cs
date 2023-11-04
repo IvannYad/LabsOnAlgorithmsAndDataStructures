@@ -85,7 +85,10 @@ namespace Laba.DataStructures
 
         public bool IfExists(double value)
         {
-            throw new NotImplementedException();
+            if (_root is null)
+                throw new NullReferenceException(nameof(_root));
+
+            return IfAlreadyExists(value, _root);
         }
 
         private int GetTreeHeight()
