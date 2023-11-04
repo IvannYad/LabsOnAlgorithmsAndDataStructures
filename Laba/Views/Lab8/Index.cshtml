@@ -71,7 +71,9 @@
 @section Scripts{
     <script src="~/js/tree.js"></script>
     <script>
-        DrawTree(1);
+        fetch('https://localhost:7188/Lab8/GetPackedArray')
+            .then(res => res.json())
+            .then(data => DrawTree(JSON.stringify(data)))
     </script>
 }
 

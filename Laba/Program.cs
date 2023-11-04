@@ -31,6 +31,7 @@ builder.Services.AddScoped<IPrepareCollectionService<string, string[]>, PrepareC
 builder.Services.AddScoped<IPrepareCollectionService<string[], double[][]>, PrepareCollectionServiceLab2>();
 
 builder.Services.AddSingleton<Lab7VM>(lab => new Lab7VM() { Queue = new PriorityQueue()});
+builder.Services.AddSingleton<ITree>(lab => new Tree());
 
 
 var app = builder.Build();

@@ -53,18 +53,17 @@ namespace Laba.DataStructures
             } while (true);
         }
 
-        public string GetPackedArray()
+        public double?[] GetPackedArray()
         {
             if (_root is null)
                 throw new NullReferenceException(nameof(_root));
 
             int height = GetTreeHeight();
             
-            string?[] packedArray = new string?[(int)Math.Pow(2, height) - 1];
+            double?[] packedArray = new double?[(int)Math.Pow(2, height) - 1];
             FillPackedArray(ref packedArray, _root, 0);
-            packedArray = packedArray.Select(e => e is null ? "null" : e).ToArray();
             
-            return $"[{string.Join(',', packedArray)}]";
+            return packedArray;
         }
 
         public (string parent, string[] children)? GetParentAndChildren(double value)
@@ -120,9 +119,9 @@ namespace Laba.DataStructures
             return currentHeight;
         }
 
-        private void FillPackedArray(ref string?[] packedArray, TreeNode node, int currentIndex)
+        private void FillPackedArray(ref double?[] packedArray, TreeNode node, int currentIndex)
         {
-            packedArray[currentIndex] = node.Value.ToString();
+            packedArray[currentIndex] = node.Value;
 
             if (node.Left is not null && node.Right is not null)
             {

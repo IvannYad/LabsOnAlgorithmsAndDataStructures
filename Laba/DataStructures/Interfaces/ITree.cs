@@ -8,6 +8,6 @@ namespace Laba.DataStructures.Interfaces
         string GetTraversing();
         bool IfExists(double value);
         (string parent, string[] children)? GetParentAndChildren(double value);
-        string GetPackedArray();
+        double?[] GetPackedArray();
     }
 }
