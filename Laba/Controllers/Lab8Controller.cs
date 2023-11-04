@@ -13,7 +13,7 @@ namespace Laba.Controllers
             tree.Add(123);
             tree.Add(7); 
             tree.Add(-1);
-            var a = tree.GetTraversing();
+            var a = tree.GetParentAndChildren(3);
             return View();
         }
     }

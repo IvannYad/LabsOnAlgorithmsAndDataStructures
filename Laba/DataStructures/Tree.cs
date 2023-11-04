@@ -7,7 +7,7 @@ namespace Laba.DataStructures
     public class Tree : ITree
     {
         private TreeNode? _root;
-        private List<double> _travestingArray;
+        private List<double>? _travestingArray;
         public Tree()
         {
             _root = null;
@@ -67,9 +67,9 @@ namespace Laba.DataStructures
             return $"[{string.Join(',', packedArray)}]";
         }
 
-        public (double parent, double[]? children) GetParentAndChildren()
+        public (string parent, string[] children)? GetParentAndChildren(double value)
         {
-            throw new NotImplementedException();
+            return FindParentAndChildrenTraversing(_root, value);
         }
 
         public string GetTraversing()
@@ -194,6 +194,24 @@ namespace Laba.DataStructures
 
             traversingArray.Add(node.Value);
             return;
+        }
+
+        private (string parent, string[] children)? FindParentAndChildrenTraversing(TreeNode node, double value)
+        {
+            if (node is null)
+                return null;
+            
+            if (node.Value == value)
+                return (node.Parent is null ? "none" : node.Parent.Value.ToString()
+                    , new string[2]
+                    { 
+                        node.Left is null ? "none" : node.Left.Value.ToString(),
+                        node.Right is null ? "none" : node.Right.Value.ToString(),
+                    });
+
+            return FindParentAndChildrenTraversing(node.Left, value) is not null ?
+                FindParentAndChildrenTraversing(node.Left, value) :
+                FindParentAndChildrenTraversing(node.Right, value);
         }
     }
 }

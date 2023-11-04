@@ -7,7 +7,7 @@ namespace Laba.DataStructures.Interfaces
         void Add(double value);
         string GetTraversing();
         bool IfExists(double value);
-        (double parent, double[]? children) GetParentAndChildren();
+        (string parent, string[] children)? GetParentAndChildren(double value);
         string GetPackedArray();
     }
 }
