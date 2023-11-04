@@ -9,6 +9,5 @@ namespace Laba.DataStructures.Interfaces
         bool IfExists(double value);
         (double parent, double[]? children) GetParentAndChildren();
         string GetPackedArray();
-        bool IfAlreadyExists();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Laba.DataStructures.Interfaces;
+using System.Xml.Linq;
 
 namespace Laba.DataStructures
 {
@@ -17,6 +18,9 @@ namespace Laba.DataStructures
                 return;
             }
 
+            if (IfAlreadyExists(value, _root))
+                throw new ArgumentException("Element with such value already exists", nameof(value));
+            
             TreeNode current = _root;
             do
             {
@@ -49,7 +53,16 @@ namespace Laba.DataStructures
 
         public string GetPackedArray()
         {
-            throw new NotImplementedException();
+            if (_root is null)
+                throw new NullReferenceException(nameof(_root));
+
+            int height = GetTreeHeight();
+            
+            string?[] packedArray = new string?[(int)Math.Pow(2, height) - 1];
+            FillPackedArray(ref packedArray, _root, 0);
+            packedArray = packedArray.Select(e => e is null ? "null" : e).ToArray();
+            
+            return $"[{string.Join(',', packedArray)}]";
         }
 
         public (double parent, double[]? children) GetParentAndChildren()
@@ -62,14 +75,86 @@ namespace Laba.DataStructures
             throw new NotImplementedException();
         }
 
-        public bool IfAlreadyExists()
+        public bool IfExists(double value)
         {
             throw new NotImplementedException();
         }
 
-        public bool IfExists(double value)
+        private int GetTreeHeight()
         {
-            throw new NotImplementedException();
+            if (_root is null)
+                throw new NullReferenceException(nameof(_root));
+
+            int height = 1;
+            TreeNode current = _root;
+
+            return TreeTraverseForHeight(current, height);
+        }
+
+        private int TreeTraverseForHeight(TreeNode node, int currentHeight)
+        {
+            if (node.Left is not null && node.Right is not null)
+            {
+                return TreeTraverseForHeight(node.Left, currentHeight + 1) >= TreeTraverseForHeight(node.Right, currentHeight + 1) ?
+                    TreeTraverseForHeight(node.Left, currentHeight + 1) :
+                    TreeTraverseForHeight(node.Right, currentHeight + 1);
+            }
+
+            if (node.Left is not null)
+                return TreeTraverseForHeight(node.Left, currentHeight + 1);
+
+            if (node.Right is not null)
+                return TreeTraverseForHeight(node.Right, currentHeight + 1);
+
+            return currentHeight;
+        }
+
+        private void FillPackedArray(ref string?[] packedArray, TreeNode node, int currentIndex)
+        {
+            packedArray[currentIndex] = node.Value.ToString();
+
+            if (node.Left is not null && node.Right is not null)
+            {
+                FillPackedArray(ref packedArray, node.Left, currentIndex * 2 + 1);
+                FillPackedArray(ref packedArray, node.Right, currentIndex * 2 + 2);
+                return;
+            }
+
+            if (node.Left is not null)
+            {
+                FillPackedArray(ref packedArray, node.Left, currentIndex * 2 + 1);
+                return;
+            }
+
+
+            if (node.Right is not null)
+            {
+                FillPackedArray(ref packedArray, node.Right, currentIndex * 2 + 2);
+                return;
+            }
+
+            return;
+        }
+
+        private bool IfAlreadyExists(double value, TreeNode node)
+        {
+            if (node.Left is not null && node.Right is not null)
+            {
+                return (node.Value == value) || IfAlreadyExists(value, node.Left) || IfAlreadyExists(value, node.Right);
+            }
+
+            if (node.Left is not null)
+            {
+                return (node.Value == value) || IfAlreadyExists(value, node.Left);
+            }
+
+
+            if (node.Right is not null)
+            {
+                return (node.Value == value) || IfAlreadyExists(value, node.Right);
+            }
+
+            return node.Value == value;
         }
     }
 }

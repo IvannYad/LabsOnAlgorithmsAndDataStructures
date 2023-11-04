@@ -13,6 +13,7 @@ namespace Laba.Controllers
             tree.Add(123);
             tree.Add(7); 
             tree.Add(-1);
+            var a = tree.GetPackedArray();
             return View();
         }
     }
