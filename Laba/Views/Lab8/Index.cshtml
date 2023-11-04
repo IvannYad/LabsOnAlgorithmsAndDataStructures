@@ -1,23 +1,20 @@
 ﻿
-
-
 <div class="container row">
     <div class="container col-7 d-flex align-items-center row">
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
-            <form asp-action="Enqueue" method="post" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
+            <form asp-action="AddItem" method="post" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
                 <div class="container col-4">
                     <label class="m-1">Item</label>
-                    <input class="form-control border-2" required />
+                    <input class="form-control border-2" name="value" required />
                     <span class="text-danger"></span>
                 </div>
                 <div class="container col-4 d-flex align-items-end">
                     <button type="submit" class="btn btn-dark text-warning">Add</button>
                 </div>
-
             </form>
         </div>
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
-            <form asp-action="Enqueue" method="post" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
+            <form asp-action="IfExists" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
                 <div class="container col-4">
                     <label class="m-1">Element</label>
                     <input class="form-control border-2" required />

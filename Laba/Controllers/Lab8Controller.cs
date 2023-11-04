@@ -14,13 +14,16 @@ namespace Laba.Controllers
         }
         public IActionResult Index()
         {
-            _tree.Add(1);
-            _tree.Add(12);
-            _tree.Add(-4); 
-            _tree.Add(11);
             return View();
         }
-        
+
+        public IActionResult AddItem(double value)
+        {
+            _tree.Add(value);
+            return RedirectToAction(nameof(Index));
+        }
+
+
         #region API_Calls
         public IActionResult GetPackedArray()
         {
@@ -31,7 +34,7 @@ namespace Laba.Controllers
             }
             catch (NullReferenceException)
             {
-                return Json(new int[2] { 1, 2});
+                return Json(new double[0]);
             }
         }
         #endregion
