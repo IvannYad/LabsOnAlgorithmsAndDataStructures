@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "treant-js": "^1.0.1",
+    "treeviz": "^2.3.0"
+  },
+  "type": "module",
+  "name": "laba",
+  "version": "1.0.0",
+  "main": "tree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "description": ""
+}
