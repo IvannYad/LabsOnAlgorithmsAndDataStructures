@@ -1,0 +1,193 @@
+﻿@model Lab7VM
+
+<div class="card-body p-3">
+    <div class="container d-flex justify-content-center align-items-center">
+        <h5 class="text-body-secondary">Lab7 Task</h5>
+    </div>
+    <div class="container row">
+        <div class="col-1" style="padding-top:90px">
+            <i class="bi bi-arrow-left h2"></i>
+        </div>
+        <div class="container mt-4 col-10">
+            <div class="container row d-flex justify-content-between">
+                @for (int i = 0; i < Model.Queue.Count; i++)
+                {
+                    <div class="container col-1 rounded bg-dark text-warning text-center">
+                        @i
+                    </div>
+                }
+            </div>
+            <hr class="mt-3 bg-dark" style="height: 3px" />
+            <div class="container row d-flex justify-content-between">
+                @foreach (var node in Model.Queue)
+                {
+                    <div class="container col-1 rounded bg-body-secondary text-warning d-flex p-0"
+                         style="height: 50px;border: solid 2px grey; width:fit-content;">
+                        <div class="container bg-body m-0 text-center p-0 text-body-secondary"
+                             style="position: absolute; z-index:1;height: 25px; width: 22px; justify-self: start; align-self:start;border-right: solid 2px grey; border-bottom: solid 2px grey; border-radius: 20% 0% 20% 0%">
+                            <div class="container p-0">
+                                @node.Priority
+                            </div>
+                        </div>
+                        <div class="container"
+                             style="justify-self:center; align-self:end;margin-left: 12px;">
+                            <h5>@node.Value</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+            <hr class="mt-3 bg-dark" style="height: 3px" />
+        </div>
+        <div class="col-1 container" style="padding-top:90px">
+            <i class="bi bi-arrow-left h2 mt-5"></i>
+        </div>
+    </div>
+
+    <div class="container row mt-5 d-flex justify-content-between">
+        <div class="col-4 text-body-secondary bg-body-secondary p-2 rounded" style="border: solid 2px grey;">
+            <form asp-action="Enqueue" method="post" class="row d-flex justify-content-between" style="width:fit-content">
+                <div class="container col-4">
+                    <label asp-for="PriorityToEnqueue" class="m-1">Priority</label>
+                    <input asp-for="PriorityToEnqueue" class="form-control border-2" required />
+                    <span asp-validation-for="PriorityToEnqueue" class="text-danger"></span>
+                </div>
+                <div class="container col-4">
+                    <label asp-for="ValueToEnqueue" class="m-1"></label>
+                    <input asp-for="ValueToEnqueue" class="form-control border-2" required />
+                    <span asp-validation-for="ValueToEnqueue" class="text-danger"></span>
+                </div>
+                <div class="container col-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-dark text-warning">Enqueue</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-3 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center" style="border: solid 2px grey">
+            <div class="row d-flex justify-content-between w-100">
+                <div class="container col-4">
+                    <a asp-action="Dequeue" class="btn btn-dark text-warning">Dequeue</a>
+                </div>
+                <div class="container col-4 d-flex align-items-center">
+                    @if (Model.DequeueResult is not null)
+                    {
+                        <div class="container rounded bg-body-secondary text-warning d-flex"
+                             style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
+                            <h5 class="m-1">@Model.DequeueResult</h5>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center" style="border: solid 2px grey">
+            <div class="row d-flex justify-content-between w-100">
+                <div class="container col-4">
+                    <a asp-action="Peek" class="btn btn-dark text-warning">Peek</a>
+                </div>
+                <div class="container col-4 d-flex align-items-center">
+                    @if (Model.PeekResult is not null)
+                    {
+                        <div class="container rounded bg-body-secondary text-warning d-flex"
+                             style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
+                            <h5 class="m-1">@Model.PeekResult</h5>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container row mt-4 d-flex justify-content-between">
+
+        <div class="col-5 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center mt-3" style="border: solid 2px grey">
+            <div class="row d-flex justify-content-between w-100">
+                <div class="container col-4">
+                    <a asp-action="FindMin" class="btn btn-dark text-warning">Find Min</a>
+                </div>
+                <div class="container col-4 d-flex align-items-center">
+                    @if (Model.MinElement is not null)
+                    {
+                        <div class="container rounded bg-body-secondary text-warning d-flex"
+                             style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
+                            <h5 class="m-1">@Model.MinElement</h5>
+                            <span asp-validation-for="MinElement" class="text-danger"></span>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center mt-3" style="border: solid 2px grey">
+            <div class="row d-flex justify-content-between w-100">
+                <div class="container col-4">
+                    <a asp-action="FindMax" class="btn btn-dark text-warning">Find Max</a>
+                </div>
+                <div class="container col-4 d-flex align-items-center">
+                    @if (Model.MaxElement is not null)
+                    {
+                        <div class="container rounded bg-body-secondary text-warning d-flex"
+                             style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
+                            <h5 class="m-1">@Model.MaxElement</h5>
+                            <span asp-validation-for="MaxElement" class="text-danger"></span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container row mt-4 d-flex justify-content-between">
+
+        <div class="col-5 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center mt-3" style="border: solid 2px grey">
+            <form asp-action="FindIndex" method="post" class="row d-flex justify-content-between" style="width:fit-content">
+                <div class="container col-9 row">
+                    <div class="container col-5">
+                        <input asp-for="ElementInput" class="form-control border-2" placeholder="Value" required />
+                        <span asp-validation-for="ElementInput" class="text-danger"></span>
+                    </div>
+                    <div class="container col-7 d-flex align-items-end">
+                        <button type="submit" class="btn btn-dark text-warning">Find Index</button>
+                    </div>
+                </div>
+                <div class="container col-3 d-flex align-items-center m-0">
+                    @if (Model.Index is not null)
+                    {
+                        <div class="container rounded bg-body-secondary text-warning d-flex"
+                             style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
+                            <h5 class="m-1">@Model.Index</h5>
+                        </div>
+                    }
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-5 text-body-secondary bg-body-secondary p-2 rounded d-flex align-items-center mt-3" style="border: solid 2px grey">
+            <form asp-action="FindElement" method="post" class="row d-flex justify-content-between" style="width:fit-content">
+                <div class="container col-9 row">
+                    <div class="container col-5">
+                        <input asp-for="IndexInput" class="form-control border-2" placeholder="Index" required />
+                        <span asp-validation-for="IndexInput" class="text-danger"></span>
+                    </div>
+                    <div class="container col-7 d-flex align-items-end">
+                        <button type="submit" class="btn btn-dark text-warning">Find by Index</button>
+                    </div>
+                </div>
+                <div class="container col-3 d-flex align-items-center">
+                    @if (Model.ElementByIndex is not null)
+                    {
+                        <div class="container rounded bg-body-secondary text-warning d-flex"
+                             style="border: solid 2px grey; width:fit-content;padding-left: 5px;padding-right: 5px;">
+                            <h5 class="m-1">@Model.ElementByIndex</h5>
+                        </div>
+                    }
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>

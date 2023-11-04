@@ -1,6 +1,6 @@
 ﻿namespace Laba.DataStructures.Interfaces
 {
-    public interface IPriorityQueue<T>
+    public interface IPriorityQueue<T> : IEnumerable<T>
     {
         public int Count { get; }
         public bool IsEmpty { get; }
@@ -13,6 +13,5 @@
         double Peek();
         int IndexOf(double value);
         double ReturnByIndex(int index);
-        static abstract IPriorityQueue<T> operator+(IPriorityQueue<T> one, IPriorityQueue<T> two); 
     }
 }

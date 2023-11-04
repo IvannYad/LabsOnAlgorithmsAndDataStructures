@@ -1,5 +1,6 @@
 ﻿using Laba.DataStructures.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 
@@ -12,7 +13,7 @@ namespace Laba.DataStructures
 
         public bool IsEmpty { get; private set; }
 
-        public Node<(int Priority, double Value)>? Start => _linkedList.Start;
+        public Node<(int Priority, double Value)> Start => _linkedList.Start;
 
         public PriorityQueue()
         {
@@ -58,11 +59,24 @@ namespace Laba.DataStructures
 
         public void Enqueue(int priority, double value)
         {
+            if (priority < 0)
+            {
+                throw new ArgumentException("Priority cannot be less than zero");
+            }
 
             Node<(int Priority, double Value)> current = _linkedList.Start;
             Node<(int Priority, double Value)> toAdd = new Node<(int Priority, double Value)>((priority, value));
             if (current is null)
             {
+                _linkedList.Start = toAdd;
+                Count++;
+                IsEmpty = false;
+                return;
+            }
+
+            if (priority < current.Info.Priority)
+            {
+                toAdd.Next = current;
                 _linkedList.Start = toAdd;
                 Count++;
                 IsEmpty = false;
@@ -77,12 +91,12 @@ namespace Laba.DataStructures
                 return;
             }
 
-            while (current.Next is not null && current.Next.Info.Priority < priority)
+            while (current.Next is not null && current.Next.Info.Priority <= priority)
             {
                 current = current.Next;
             }
 
-            _linkedList.AddAfter(_linkedList.Start, toAdd);
+            _linkedList.AddAfter(current, toAdd);
             Count++;
             IsEmpty = false;
             return;
@@ -124,7 +138,7 @@ namespace Laba.DataStructures
         {
             int index = -1;
             if (IsEmpty)
-                return index;
+                throw new InvalidOperationException("Queue is empty");
 
             foreach (var node in _linkedList)
             {
@@ -147,15 +161,29 @@ namespace Laba.DataStructures
             {
                 if (currentIndex == index)
                     toReturn = node.Info.Value;
+                currentIndex++;
             }
 
             return toReturn;
         }
 
-        static IPriorityQueue<(int Priority, double Value)>
-            IPriorityQueue<(int Priority, double Value)>.operator +(
-            IPriorityQueue<(int Priority, double Value)> one,
-            IPriorityQueue<(int Priority, double Value)> two)
+        public IEnumerator<(int Priority, double Value)> GetEnumerator()
+        {
+            foreach (var node in _linkedList)
+            {
+                yield return node.Info;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public static PriorityQueue
+            operator +(
+            PriorityQueue one,
+            PriorityQueue two)
         {
             if (one is null || two is null)
             {
@@ -164,7 +192,7 @@ namespace Laba.DataStructures
 
             var currentOne = one.Start;
             var currentTwo = two.Start;
-            IPriorityQueue<(int Priority, double Value)> result = new PriorityQueue();
+            PriorityQueue result = new PriorityQueue();
 
             while (currentOne is not null || currentTwo is not null)
             {

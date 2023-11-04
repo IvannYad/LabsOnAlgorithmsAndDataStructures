@@ -34,7 +34,7 @@ namespace Laba.Controllers
                 lab3VM.SortingAlgorithmStepsResult = _customSortingService3.Steps;
                 lab3VM.ComparesCount = _customSortingService3.ComparesCount;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("ArrayString", "Invalid array input");
             }
