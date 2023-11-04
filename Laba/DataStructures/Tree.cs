@@ -1,4 +1,5 @@
 ﻿using Laba.DataStructures.Interfaces;
+using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 
 namespace Laba.DataStructures
@@ -6,6 +7,7 @@ namespace Laba.DataStructures
     public class Tree : ITree
     {
         private TreeNode? _root;
+        private List<double> _travestingArray;
         public Tree()
         {
             _root = null;
@@ -70,9 +72,15 @@ namespace Laba.DataStructures
             throw new NotImplementedException();
         }
 
-        public double[] GetTraversing()
+        public string GetTraversing()
         {
-            throw new NotImplementedException();
+            if (_root is null)
+                throw new NullReferenceException(nameof(_root));
+            
+            _travestingArray = new List<double>();
+            TraversingRecursion(_root, ref _travestingArray);
+
+            return $"[{string.Join(" -> ", _travestingArray)}]";
         }
 
         public bool IfExists(double value)
@@ -155,6 +163,34 @@ namespace Laba.DataStructures
             }
 
             return node.Value == value;
+        }
+
+        private void TraversingRecursion(TreeNode node, ref List<double> traversingArray)
+        {
+            if (node.Left is not null && node.Right is not null)
+            {
+                TraversingRecursion(node.Left, ref traversingArray);
+                TraversingRecursion(node.Right, ref traversingArray);
+                traversingArray.Add(node.Value);
+                return;
+            }
+            if (node.Left is not null)
+            {
+                TraversingRecursion(node.Left, ref traversingArray);
+                traversingArray.Add(node.Value);
+                return;
+            }
+
+
+            if (node.Right is not null)
+            {
+                TraversingRecursion(node.Right, ref traversingArray);
+                traversingArray.Add(node.Value);
+                return;
+            }
+
+            traversingArray.Add(node.Value);
+            return;
         }
     }
 }
