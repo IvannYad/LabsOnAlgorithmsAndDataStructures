@@ -70,17 +70,9 @@
 
 
 @section Scripts{
-    <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="https://unpkg.com/tree-visualizer/src/tree-visualizer.js"></script>
+    <script src="~/js/tree.js"></script>
     <script>
-        let targetFn = treeVisualizer(
-            { target: "targetDiv" }
-        )
-        targetFn.drawData(
-            [{
-                data: "[1,-5,15,-9,-4,10,17,null,-6,null,0,null,14, 12, 22, 34, null, 2]"
-            }]
-        )
+        DrawTree(1);
     </script>
 }
 
