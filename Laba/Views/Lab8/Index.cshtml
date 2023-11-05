@@ -55,6 +55,17 @@
                 </div>
             </div>
         </div>
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-12 d-flex justify-content-start mt-3" style="border: solid 2px grey;">
+            <div class="container col-2 d-flex align-items-center m-0">
+                <div class="container">
+                    <button onclick="GetSecond()" class="btn btn-dark text-warning">Get second</button>
+                </div>
+            </div>
+            <div class="container col-10 d-flex align-items-center m-0">
+                <div class="container text-center" id="getSecond">
+                </div>
+            </div>
+        </div>
     </div>
     <div class="container col-5">
         <div class="container" id="targetDiv" style="height: fit-content;"></div>
@@ -76,6 +87,13 @@
             fetch('/Lab8/Traverse')
                 .then(res => res.json())
                 .then(data => document.getElementById("traversing")
+                    .innerHTML = data);
+        }
+
+        function GetSecond() {
+            fetch('/Lab8/GetSecond')
+                .then(res => res.json())
+                .then(data => document.getElementById("getSecond")
                     .innerHTML = data);
         }
 

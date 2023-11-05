@@ -54,7 +54,37 @@ namespace Laba.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+
+        #region API_Calls
+        [HttpGet]
+        public IActionResult GetPackedArray()
+        {
+            try
+            {
+                var jsonObject = _tree.GetPackedArray();
+                return Json(jsonObject);
+            }
+            catch (NullReferenceException)
+            {
+                return Json(new double[0]);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Traverse()
+        {
+            try
+            {
+                var jsonObject = _tree.GetTraversing();
+                return Json(string.Join(" -> ", jsonObject.Select(p => $"<b>{p}</b>")));
+            }
+            catch (NullReferenceException)
+            {
+                return Json(new double[0]);
+            }
+        }
+
+        [HttpGet]
         public IActionResult FindParentAndChildren(double element)
         {
             try
@@ -72,31 +102,31 @@ namespace Laba.Controllers
             return Json(new double[0]);
         }
 
-        #region API_Calls
-        public IActionResult GetPackedArray()
+        [HttpGet]
+        public IActionResult GetSecond()
         {
-            try
-            {
-                var jsonObject = _tree.GetPackedArray();
-                return Json(jsonObject);
-            }
-            catch (NullReferenceException)
-            {
-                return Json(new double[0]);
-            }
-        }
-
-        public IActionResult Traverse()
-        {
+            double result = 0;
             try
             {
                 var jsonObject = _tree.GetTraversing();
-                return Json(string.Join(" -> ", jsonObject.Select(p => $"<b>{p}</b>")));
+                if (jsonObject is not null)
+                {
+                    jsonObject = jsonObject.Where(p => (int)p % 2 == 0).ToArray();
+                    result =  jsonObject.Length < 2 ?
+                        throw new InvalidOperationException("Cannot do this") :
+                        jsonObject[^2];
+                }
             }
             catch (NullReferenceException)
             {
                 return Json(new double[0]);
             }
+            catch (InvalidOperationException)
+            {
+                return Json(new double[0]);
+            }
+
+            return Json(result);
         }
         #endregion
     }
