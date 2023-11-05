@@ -17,12 +17,30 @@ namespace Laba.Controllers
             return View();
         }
 
-        public IActionResult AddItem(double value)
+        [HttpPost]
+        public IActionResult AddItem(double valueToAdd)
         {
-            _tree.Add(value);
+            _tree.Add(valueToAdd);
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult IfExists(double valueToCheck)
+        {
+            try
+            {
+                if (_tree.IfExists(valueToCheck))
+                    TempData["success"] = "Value is  in tree";
+                else
+                    TempData["error"] = "Value is not in tree";
+            }
+            catch (NullReferenceException ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+            
+            return RedirectToAction(nameof(Index));
+        }
 
         #region API_Calls
         public IActionResult GetPackedArray()

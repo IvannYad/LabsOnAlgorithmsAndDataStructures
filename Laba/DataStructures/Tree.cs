@@ -56,7 +56,7 @@ namespace Laba.DataStructures
         public double?[] GetPackedArray()
         {
             if (_root is null)
-                throw new NullReferenceException(nameof(_root));
+                throw new NullReferenceException("Tree is empty");
 
             int height = GetTreeHeight();
             
@@ -74,7 +74,7 @@ namespace Laba.DataStructures
         public string GetTraversing()
         {
             if (_root is null)
-                throw new NullReferenceException(nameof(_root));
+                throw new NullReferenceException("Tree is empty");
             
             _travestingArray = new List<double>();
             TraversingRecursion(_root, ref _travestingArray);
@@ -85,7 +85,7 @@ namespace Laba.DataStructures
         public bool IfExists(double value)
         {
             if (_root is null)
-                throw new NullReferenceException(nameof(_root));
+                throw new NullReferenceException("Tree is empty");
 
             return IfAlreadyExists(value, _root);
         }
@@ -93,7 +93,7 @@ namespace Laba.DataStructures
         private int GetTreeHeight()
         {
             if (_root is null)
-                throw new NullReferenceException(nameof(_root));
+                throw new NullReferenceException("Tree is empty");
 
             int height = 1;
             TreeNode current = _root;

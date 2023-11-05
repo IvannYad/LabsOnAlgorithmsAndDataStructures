@@ -5,7 +5,7 @@
             <form asp-action="AddItem" method="post" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
                 <div class="container col-4">
                     <label class="m-1">Item</label>
-                    <input class="form-control border-2" name="value" required />
+                    <input class="form-control border-2" name="valueToAdd" required />
                     <span class="text-danger"></span>
                 </div>
                 <div class="container col-4 d-flex align-items-end">
@@ -17,7 +17,7 @@
             <form asp-action="IfExists" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
                 <div class="container col-4">
                     <label class="m-1">Element</label>
-                    <input class="form-control border-2" required />
+                    <input class="form-control border-2" name="valueToCheck" required />
                     <span class="text-danger"></span>
                 </div>
                 <div class="container col-4 d-flex align-items-end">
