@@ -29,12 +29,11 @@
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-12 d-flex justify-content-start" style="border: solid 2px grey;">
             <div class="container col-2 d-flex align-items-center m-0">
                 <div class="container">
-                    <button type="submit" class="btn btn-dark text-warning">Traverse</button>
+                    <button onclick="Traverse()" class="btn btn-dark text-warning">Traverse</button>
                 </div>
             </div>
             <div class="container col-10 d-flex align-items-center m-0">
-                <div class="container text-center">
-                    <b>12</b> -> 1234 -> 245
+                <div class="container text-center" id="traversing">
                 </div>
             </div>
         </div>
@@ -68,6 +67,15 @@
 @section Scripts{
     <script src="~/js/tree.js"></script>
     <script>
+        
+        
+        function Traverse(){
+            fetch('https://localhost:7188/Lab8/Traverse')
+                .then(res => res.json())
+                .then(data => document.getElementById("traversing")
+                    .innerHTML = data)
+        }
+
         fetch('https://localhost:7188/Lab8/GetPackedArray')
             .then(res => res.json())
             .then(data => DrawTree(JSON.stringify(data)))

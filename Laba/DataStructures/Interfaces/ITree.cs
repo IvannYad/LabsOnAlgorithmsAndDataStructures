@@ -5,7 +5,7 @@ namespace Laba.DataStructures.Interfaces
     public interface ITree
     {
         void Add(double value);
-        string GetTraversing();
+        double[] GetTraversing();
         bool IfExists(double value);
         (string parent, string[] children)? GetParentAndChildren(double value);
         double?[] GetPackedArray();

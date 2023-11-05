@@ -20,7 +20,15 @@ namespace Laba.Controllers
         [HttpPost]
         public IActionResult AddItem(double valueToAdd)
         {
-            _tree.Add(valueToAdd);
+            try
+            {
+                _tree.Add(valueToAdd);
+            }
+            catch (ArgumentException ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -38,7 +46,7 @@ namespace Laba.Controllers
             {
                 TempData["error"] = ex.Message;
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -49,6 +57,19 @@ namespace Laba.Controllers
             {
                 var jsonObject = _tree.GetPackedArray();
                 return Json(jsonObject);
+            }
+            catch (NullReferenceException)
+            {
+                return Json(new double[0]);
+            }
+        }
+
+        public IActionResult Traverse()
+        {
+            try
+            {
+                var jsonObject = _tree.GetTraversing();
+                return Json(string.Join(" -> ", jsonObject.Select(p => $"<b>{p}</b>")));
             }
             catch (NullReferenceException)
             {

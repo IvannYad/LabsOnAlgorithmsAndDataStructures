@@ -21,7 +21,7 @@ namespace Laba.DataStructures
             }
 
             if (IfAlreadyExists(value, _root))
-                throw new ArgumentException("Element with such value already exists", nameof(value));
+                throw new ArgumentException("Element with such value already exists");
             
             TreeNode current = _root;
             do
@@ -71,7 +71,7 @@ namespace Laba.DataStructures
             return FindParentAndChildrenTraversing(_root, value);
         }
 
-        public string GetTraversing()
+        public double[] GetTraversing()
         {
             if (_root is null)
                 throw new NullReferenceException("Tree is empty");
@@ -79,7 +79,7 @@ namespace Laba.DataStructures
             _travestingArray = new List<double>();
             TraversingRecursion(_root, ref _travestingArray);
 
-            return $"[{string.Join(" -> ", _travestingArray)}]";
+            return _travestingArray.ToArray();
         }
 
         public bool IfExists(double value)
