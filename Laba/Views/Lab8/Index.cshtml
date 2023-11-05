@@ -39,21 +39,19 @@
         </div>
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-12 d-flex justify-content-start mt-3" style="border: solid 2px grey;">
             <div class="container col-6 d-flex align-items-center m-0">
-                <form asp-action="Enqueue" method="post" class="row d-flex justify-content-between align-content-center" style="width:fit-content">
+                <duv class="row d-flex justify-content-between align-content-center" style="width:fit-content">
                     <div class="container col-6">
                         <label class="mb-1">Element</label>
-                        <input class="form-control border-2" required />
+                        <input class="form-control border-2" name="element" type="number" step="0.001" required />
                         <span class="text-danger"></span>
                     </div>
                     <div class="container d-flex align-items-end col-6">
-                        <button type="submit" class="btn btn-dark text-warning w-100">Find</button>
+                        <button onclick="GetParentChildren(document.getElementsByName('element')[0].value)" type="submit" class="btn btn-dark text-warning w-100">Find</button>
                     </div>
-                </form>
+                </duv>
             </div>
             <div class="container col-6 d-flex align-items-center m-0">
-                <div class="container text-center">
-                    <b>Parent:</b> 2<br />
-                    <b>Children:</b> 1, 2
+                <div class="container text-center" id="parentChildren">
                 </div>
             </div>
         </div>
@@ -67,18 +65,23 @@
 @section Scripts{
     <script src="~/js/tree.js"></script>
     <script>
-        
+        function GetParentChildren(str) {
+            fetch('/Lab8/FindParentAndChildren?' + new URLSearchParams({
+                    element: parseFloat(str)
+                })).then(res => res.json())
+                .then(data => document.getElementById("parentChildren").innerHTML = data);
+        }
         
         function Traverse(){
-            fetch('https://localhost:7188/Lab8/Traverse')
+            fetch('/Lab8/Traverse')
                 .then(res => res.json())
                 .then(data => document.getElementById("traversing")
-                    .innerHTML = data)
+                    .innerHTML = data);
         }
 
-        fetch('https://localhost:7188/Lab8/GetPackedArray')
+        fetch('/Lab8/GetPackedArray')
             .then(res => res.json())
-            .then(data => DrawTree(JSON.stringify(data)))
+            .then(data => DrawTree(JSON.stringify(data)));
     </script>
 }
 
