@@ -26,6 +26,23 @@
             </div>
         </div>
     </div>
+    <div class="container col-12 d-flex align-items-center row justify-content-around">
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-12" style="border: solid 2px grey;">
+            <form asp-action="CustomTaskEvaluating" class="row d-flex justify-content-between align-content-center">
+                <div class="container col-3">
+                    <label class="m-1">Size</label>
+                    <input class="form-control border-2" type="number" name="ArraySizeCustom" required />
+                </div>
+                <div class="container col-3">
+                    <label class="m-1">Item</label>
+                    <input class="form-control border-2" type="number" name="valueToFindCustom" required />
+                </div>
+                <div class="container col-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-dark text-warning w-100">Evaluate</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div id="canvas-container" class="container row canvas">
