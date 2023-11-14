@@ -28,3 +28,7 @@ td.bg-success {
 td.bg-danger {
     border: solid 2px #9a0b0bcf;
 }
+
+#targetDiv-parent{
+    height:fit-content;
+}
