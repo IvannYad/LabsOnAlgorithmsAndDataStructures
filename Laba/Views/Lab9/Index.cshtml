@@ -1,1 +1,77 @@
-﻿
+﻿<div class="container row">
+    <div class="container col-12 d-flex align-items-center row justify-content-around">
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-6">
+                    <label class="m-1">Array Size</label>
+                    <input class="form-control border-2" type="number" name="ArraySize" required />
+                </div>
+                <div class="container col-4 d-flex align-items-end">
+                    <button onclick="return SimulateArrayForBinarySearch()" class="btn btn-dark text-warning w-100">Generate</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-5">
+                    <label class="m-1">Item</label>
+                    <input class="form-control border-2" type="number" name="valueToFind" required />
+                </div>
+                <div class="container col-4 d-flex align-items-end">
+                    <button onclick="SearchAlgorithmSteps()" class="btn btn-dark text-warning w-100">Find</button>
+                </div>
+                <div class="container col-3 d-flex align-items-end">
+                    <button id="nextButton" onclick="NextStep()" class="btn btn-dark text-warning w-100" style="display: none;">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="canvas-container" class="container row canvas">
+</div>
+
+<div id="numComparisons" class="row m-5 mt-1">
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="/js/binarySearch.js"></script>
+    <script>
+        let n;
+        let iteration = 0;
+        function SimulateArrayForBinarySearch() {
+            n = document.getElementsByName('ArraySize')[0].value;
+            document.getElementById('canvas-container').innerHTML = '<canvas id="elements" style="width:100%"></canvas>';
+            fetch('/Lab9/GenerateArray?' + new URLSearchParams({
+                n: document.getElementsByName('ArraySize')[0].value
+            })).then(res => res.json())
+                .then(response => {
+                    DrawGistogram(response.data, response.colors, response.data);
+                });
+            document.getElementById('nextButton').style = "display: none;";
+        }
+
+        function SearchAlgorithmSteps() {
+            document.getElementById('numComparisons').innerHTML = "";
+            iteration = 0;
+            document.getElementById('nextButton').style = "display: block;";
+        }
+
+        function NextStep() {
+            document.getElementById('canvas-container').innerHTML = '<canvas id="elements" style="width:100%"></canvas>';
+            fetch('/Lab9/GenerateSteps?' + new URLSearchParams({
+                value: document.getElementsByName('valueToFind')[0].value,
+                start: 0,
+                end: n - 1
+            })).then(res => res.json())
+                .then(response => {
+                    DrawGistogram(response.data, response.colorsArr[iteration++], response.data);
+                    if (iteration >= response.numComp) {
+                        document.getElementById('numComparisons').innerHTML = "Number of comparisons: " + response.numComp;
+                    }
+                });
+        }
+    </script>
+}
