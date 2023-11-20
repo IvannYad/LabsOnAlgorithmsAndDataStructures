@@ -42,7 +42,26 @@ namespace Laba.Controllers
             return Json(new { word = mostFrequentWord, newText = texts[0] });
         }
 
-        
+        public IActionResult FindPrefix(string word)
+        {
+            int prefix = 0;
+            for (int i = 1; i < word.Length; i++)
+            {
+                var tempWord = word[..(i + 1)];
+                for (int j = 0; j < i; j++)
+                {
+                    string prefWord = tempWord[..(j + 1)];
+                    string sufWord = tempWord[^(j + 1)..];
+                    if (prefWord == sufWord)
+                    {
+                        prefix = j + 1;
+                    }
+                }
+            }
+
+            return Json(prefix);
+        }
+
         #endregion
     }
 }
