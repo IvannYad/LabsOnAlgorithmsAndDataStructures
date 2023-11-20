@@ -62,21 +62,19 @@
     <div class="container col-12 d-flex align-items-center row justify-content-around">
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
             <div class="row d-flex justify-content-between align-content-center">
-                <div class="container col-6 d-flex align-items-end">
+                <div class="container col-4 d-flex align-items-end">
                     <button onclick="FindPrefix()" class="btn btn-dark text-warning w-100">Find prefix</button>
                 </div>
-                <div id="PrefixContainer" class="container col-5 text-center m-auto">
-                    Word: <b>hello</b>
+                <div id="PrefixContainer" class="container col-7 text-center m-auto">
                 </div>
             </div>
         </div>
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
             <div class="row d-flex justify-content-between align-content-center">
                 <div class="container col-6 d-flex align-items-end">
-                    <button onclick="GenerateText1()" class="btn btn-dark text-warning w-100">Find index in text 2</button>
+                    <button onclick="FindIndex()" class="btn btn-dark text-warning w-100">Find index in text 2</button>
                 </div>
-                <div class="container col-5 text-center m-auto">
-                    Word: <b>hello</b>
+                <div id="IndexContainer" class="container col-5 text-center m-auto">
                 </div>
             </div>
         </div>
@@ -110,7 +108,7 @@
         }
 
         function FindWord() {
-            fetch('/Lab10/FindWord')
+            fetch('/Lab10/FindMostFrequentWord')
             .then(res => res.json())
                 .then(response => {
                     word = response.word;
@@ -124,9 +122,19 @@
                 .then(res => res.json())
                 .then(response => {
                     prefix = response;
-                    document.getElementById("PrefixContainer").innerHTML = "Prefix length: <b>" + prefix + "</b>";
+                    document.getElementById("PrefixContainer").innerHTML = "Prefix func: <b>" + prefix + "</b>";
                 });
         }
-        
+
+        function FindIndex() {
+            fetch('/Lab10/FindWordInText?' + new URLSearchParams({
+                word: word
+            })).then(res => res.json())
+                .then(response => {
+                    textarea2.innerHTML = response.text;
+                    document.getElementById("IndexContainer").innerHTML = "Index: <b>" + response.index + "</b>";
+                });
+        }
+
     </script>
 }
