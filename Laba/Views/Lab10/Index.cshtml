@@ -7,22 +7,30 @@
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
             <div class="row d-flex justify-content-between align-content-center">
                 <div class="container col-5">
-                    <label for="text1WordsNumber">Number of words</label>
-                    <input id="text1WordsNumber" class="form-control border-2" type="number" name="text1WordsCount" required />
+                    <label for="text1ParagraphsNumber">Number of paragraphs</label>
+                    <input id="text1ParagraphsNumber" class="form-control border-2" type="number" name="text1ParagraphsCount"
+                           required onkeyup="success('text1ParagraphsNumber', 'GenText1Button')" />
                 </div>
                 <div class="container col-6 d-flex align-items-end">
-                    <button onclick="GenerateText1()" class="btn btn-dark text-warning w-100">Generate text 1</button>
+                    <button id="GenText1Button" onclick="GenerateText(document.getElementsByName('text1ParagraphsCount')[0].value, 'textArea1')"
+                            class="btn btn-dark text-warning w-100" disabled>
+                        Generate text 1
+                    </button>
                 </div>
             </div>
         </div>
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
             <div class="row d-flex justify-content-between align-content-center">
                 <div class="container col-5">
-                    <label for="text2WordsNumber">Number of words</label>
-                    <input id="text2WordsNumber" class="form-control border-2" type="number" name="text2WordsCount" required />
+                    <label for="text2ParagraphsNumber">Number of paragraphs</label>
+                    <input id="text2ParagraphsNumber" class="form-control border-2" type="number" name="text2ParagraphsCount"
+                           required onkeyup="success('text2ParagraphsNumber', 'GenText2Button')" />
                 </div>
                 <div class="container col-6 d-flex align-items-end">
-                    <button onclick="" class="btn btn-dark text-warning w-100">Generate text 2</button>
+                    <button id="GenText2Button" onclick="GenerateText(document.getElementsByName('text2ParagraphsCount')[0].value, 'textArea2')"
+                            class="btn btn-dark text-warning w-100" disabled>
+                        Generate text 2
+                    </button>
                 </div>
             </div>
         </div>
@@ -34,7 +42,7 @@
             </div>
         </div>
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
-            <div class="text-body-secondary p-2 rounded w-100" style="height: fit-content" id="textArea1">
+            <div class="text-body-secondary p-2 rounded w-100" style="height: fit-content" id="textArea2">
                 Text 2 will be here
             </div>
         </div>
@@ -87,7 +95,24 @@
     <script>
         let textarea1 = document.getElementById("textArea1");
         let textarea2 = document.getElementById("textArea2");
-        
+
+        function success(name, button) {
+            if (document.getElementById(name).value === "") {
+                document.getElementById(button).disabled = true;
+            } else {
+                document.getElementById(button).disabled = false;
+            }
+        }
+
+        function GenerateText(n, idOfTextArea){
+            fetch('/Lab10/GenerateText?' + new URLSearchParams({
+                paragraphsCount: n,
+                textArea: idOfTextArea
+            })).then(res => res.json())
+                .then(response => {
+                    document.getElementById(idOfTextArea).innerHTML = response;
+                });
+        }
         
     </script>
 }
