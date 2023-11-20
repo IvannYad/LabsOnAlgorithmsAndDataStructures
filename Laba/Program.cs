@@ -35,7 +35,7 @@ builder.Services.AddSingleton<ArrayHolder>();
 
 builder.Services.AddSingleton<Lab7VM>(lab => new Lab7VM() { Queue = new PriorityQueue()});
 builder.Services.AddSingleton<ITree>(lab => new Tree());
-
+builder.Services.AddSingleton<string[]>(s => new string[2]);
 
 
 var app = builder.Build();

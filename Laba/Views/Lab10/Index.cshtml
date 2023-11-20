@@ -51,17 +51,10 @@
         <div class="text-body-secondary bg-body-secondary p-2 rounded col-7 m-3" style="border: solid 2px grey;">
             <div class="row d-flex justify-content-between align-content-center">
                 <div class="container col-6 d-flex align-items-end">
-                    <button onclick="GenerateText1()" class="btn btn-dark text-warning w-100">Find word</button>
+                    <button onclick="FindWord()" class="btn btn-dark text-warning w-100">Find word</button>
                 </div>
-                <div class="container col-5 text-center m-auto">
-                    Word: <b>hello</b>
-                </div>
-            </div>
-        </div>
-        <div class="text-body-secondary bg-body-secondary p-2 rounded col-3 m-3" style="border: solid 2px grey;">
-            <div class="row d-flex justify-content-between align-content-center">
-                <div class="container col-6 d-flex align-items-end">
-                    <button onclick="GenerateText1()" class="btn btn-dark text-warning w-100">Erase</button>
+                <div id="mostFrequentWordContainer" class="container col-5 text-center m-auto">
+                    
                 </div>
             </div>
         </div>
@@ -72,7 +65,7 @@
                 <div class="container col-6 d-flex align-items-end">
                     <button onclick="GenerateText1()" class="btn btn-dark text-warning w-100">Find prefix</button>
                 </div>
-                <div class="container col-5 text-center m-auto">
+                <div id="PrefixContainer" class="container col-5 text-center m-auto">
                     Word: <b>hello</b>
                 </div>
             </div>
@@ -111,6 +104,15 @@
             })).then(res => res.json())
                 .then(response => {
                     document.getElementById(idOfTextArea).innerHTML = response;
+                });
+        }
+
+        function FindWord() {
+            fetch('/Lab10/FindWord')
+            .then(res => res.json())
+                .then(response => {
+                    textarea1.innerHTML = response.newText;
+                    document.getElementById("mostFrequentWordContainer").innerHTML = "Word: <b>" + response.word + "</b>";
                 });
         }
         
