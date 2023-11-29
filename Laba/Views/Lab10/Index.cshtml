@@ -1,0 +1,140 @@
+﻿<div class="container d-flex justify-content-center align-items-center mb-3">
+    <h5 class="text-body-secondary">Lab10 Task</h5>
+</div>
+
+<div class="container row">
+    <div class="container col-12 d-flex align-items-center row justify-content-around">
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-5">
+                    <label for="text1ParagraphsNumber">Number of paragraphs</label>
+                    <input id="text1ParagraphsNumber" class="form-control border-2" type="number" name="text1ParagraphsCount"
+                           required onkeyup="success('text1ParagraphsNumber', 'GenText1Button')" />
+                </div>
+                <div class="container col-6 d-flex align-items-end">
+                    <button id="GenText1Button" onclick="GenerateText(document.getElementsByName('text1ParagraphsCount')[0].value, 'textArea1')"
+                            class="btn btn-dark text-warning w-100" disabled>
+                        Generate text 1
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-5">
+                    <label for="text2ParagraphsNumber">Number of paragraphs</label>
+                    <input id="text2ParagraphsNumber" class="form-control border-2" type="number" name="text2ParagraphsCount"
+                           required onkeyup="success('text2ParagraphsNumber', 'GenText2Button')" />
+                </div>
+                <div class="container col-6 d-flex align-items-end">
+                    <button id="GenText2Button" onclick="GenerateText(document.getElementsByName('text2ParagraphsCount')[0].value, 'textArea2')"
+                            class="btn btn-dark text-warning w-100" disabled>
+                        Generate text 2
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container col-12 d-flex align-items-center row justify-content-around">
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="text-body-secondary p-2 rounded w-100" style="height: fit-content" id="textArea1">
+                Text 1 will be here
+            </div>
+        </div>
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="text-body-secondary p-2 rounded w-100" style="height: fit-content" id="textArea2">
+                Text 2 will be here
+            </div>
+        </div>
+    </div>
+    <div class="container col-12 d-flex align-items-center row justify-content-around">
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-7 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-6 d-flex align-items-end">
+                    <button onclick="FindWord()" class="btn btn-dark text-warning w-100">Find word</button>
+                </div>
+                <div id="mostFrequentWordContainer" class="container col-5 text-center m-auto">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container col-12 d-flex align-items-center row justify-content-around">
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-4 d-flex align-items-end">
+                    <button onclick="FindPrefix()" class="btn btn-dark text-warning w-100">Find prefix</button>
+                </div>
+                <div id="PrefixContainer" class="container col-7 text-center m-auto">
+                </div>
+            </div>
+        </div>
+        <div class="text-body-secondary bg-body-secondary p-2 rounded col-5 m-3" style="border: solid 2px grey;">
+            <div class="row d-flex justify-content-between align-content-center">
+                <div class="container col-6 d-flex align-items-end">
+                    <button onclick="FindIndex()" class="btn btn-dark text-warning w-100">Find index in text 2</button>
+                </div>
+                <div id="IndexContainer" class="container col-5 text-center m-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+@section Scripts{
+    <script>
+        let textarea1 = document.getElementById("textArea1");
+        let textarea2 = document.getElementById("textArea2");
+        let prefix = 0;
+        let word = '';
+
+        function success(name, button) {
+            if (document.getElementById(name).value === "") {
+                document.getElementById(button).disabled = true;
+            } else {
+                document.getElementById(button).disabled = false;
+            }
+        }
+
+        function GenerateText(n, idOfTextArea){
+            fetch('/Lab10/GenerateText?' + new URLSearchParams({
+                paragraphsCount: n,
+                textArea: idOfTextArea
+            })).then(res => res.json())
+                .then(response => {
+                    document.getElementById(idOfTextArea).innerHTML = response;
+                });
+        }
+
+        function FindWord() {
+            fetch('/Lab10/FindMostFrequentWord')
+            .then(res => res.json())
+                .then(response => {
+                    word = response.word;
+                    textarea1.innerHTML = response.newText;
+                    document.getElementById("mostFrequentWordContainer").innerHTML = "Word: <b>" + response.word + "</b>";
+                });
+        }
+
+        function FindPrefix() {
+            fetch('/Lab10/FindPrefix?' + new URLSearchParams({ word: word }))
+                .then(res => res.json())
+                .then(response => {
+                    prefix = response;
+                    document.getElementById("PrefixContainer").innerHTML = "Prefix func: <b>" + prefix + "</b>";
+                });
+        }
+
+        function FindIndex() {
+            fetch('/Lab10/FindWordInText?' + new URLSearchParams({
+                word: word
+            })).then(res => res.json())
+                .then(response => {
+                    textarea2.innerHTML = response.text;
+                    document.getElementById("IndexContainer").innerHTML = "Index: <b>" + response.index + "</b>";
+                });
+        }
+
+    </script>
+}
