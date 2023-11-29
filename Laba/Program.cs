@@ -12,6 +12,7 @@ using Laba.Services.ServicesLab2;
 using Laba.Services.ServicesLab3;
 using Laba.Services.ServicesLab4;
 using Laba.Services.ServicesLab5;
+using Laba.Services.ServicesLab9;
 using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IOrdinarySortingService5, OrdinarySortingService5>();
 builder.Services.AddScoped<ICustomSortingService5, CustomSortingService5>();
 builder.Services.AddScoped<IPrepareCollectionService<string, string[]>, PrepareCollectionServiceLab1>();
 builder.Services.AddScoped<IPrepareCollectionService<string[], double[][]>, PrepareCollectionServiceLab2>();
+builder.Services.AddSingleton<ArrayHolder>();
 
 builder.Services.AddSingleton<Lab7VM>(lab => new Lab7VM() { Queue = new PriorityQueue()});
 builder.Services.AddSingleton<ITree>(lab => new Tree());
